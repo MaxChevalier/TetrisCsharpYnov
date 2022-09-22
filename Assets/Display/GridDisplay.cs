@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,20 +29,39 @@ public class GridDisplay : MonoBehaviour
 
         Piece piece = new Piece();
 
+        bool isColliding(List<int> cord, Piece piece, string direction){
+            if (direction=="down"){
+                if ((colors[cord[0] + 1][cord[1]] == SquareColor.TRANSPARENT)||(cord[1]==piece.cord1[1]&&cord[0]+1==piece.cord1[0])||(cord[1]==piece.cord2[1]&&cord[0]+1==piece.cord2[0])||(cord[1]==piece.cord3[1]&&cord[0]+1==piece.cord3[0])||(cord[1]==piece.cord4[1]&&cord[0]+1==piece.cord4[0])) 
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         bool isPosed(){
-            if (((piece.cord1[0]=piece.cord2[0]&&piece.cord1[1]<piece.cord2[1])||(piece.cord1[0]=piece.cord3[0]&&piece.cord1[1]<piece.cord3[1])||(piece.cord1[0]=piece.cord4[0]&&piece.cord1[1]<piece.cord4[1])||(piece.cord1[0]=piece.cord4[0])||(piece.cord1[0]=piece.cord3[0])||(piece.cord1[0]=piece.cord2[0]))&&colors[piece.cord1[0]][piece.cord1[1]]!=SquareColor.TRANSPARENT){
+            if (piece.cord1[0]==21||piece.cord2[0]==21||piece.cord3[0]==21||piece.cord4[0]==21){
                 return true;
+            }else{
+                if (isColliding(piece.cord1, piece, "down")){
+                    return true;
+                }
+                if (isColliding(piece.cord2, piece, "down")){
+                    return true;
+                }
+                if (isColliding(piece.cord3, piece, "down")){
+                    return true;
+                }
+                if (isColliding(piece.cord4, piece, "down")){
+                    return true;
+                }
             }
-            if (((piece.cord2[0]=piece.cord1[0]&&piece.cord2[1]<piece.cord1[1])||(piece.cord2[0]=piece.cord3[0]&&piece.cord2[1]<piece.cord3[1])||(piece.cord2[0]=piece.cord4[0]&&piece.cord2[1]<piece.cord4[1])||(piece.cord2[0]=piece.cord4[0])||(piece.cord2[0]=piece.cord3[0])||(piece.cord2[0]=piece.cord1[0]))&&colors[piece.cord2[0]][piece.cord2[1]]!=SquareColor.TRANSPARENT){
-                return true;
-            }
-            if (((piece.cord3[0]=piece.cord1[0]&&piece.cord3[1]<piece.cord1[1])||(piece.cord3[0]=piece.cord2[0]&&piece.cord3[1]<piece.cord2[1])||(piece.cord3[0]=piece.cord4[0]&&piece.cord3[1]<piece.cord4[1])||(piece.cord3[0]=piece.cord4[0])||(piece.cord3[0]=piece.cord2[0])||(piece.cord3[0]=piece.cord1[0]))&&colors[piece.cord3[0]][piece.cord3[1]]!=SquareColor.TRANSPARENT){
-                return true;
-            }
-            if (((piece.cord4[0]=piece.cord1[0]&&piece.cord4[1]<piece.cord1[1])||(piece.cord4[0]=piece.cord2[0]&&piece.cord4[1]<piece.cord2[1])||(piece.cord4[0]=piece.cord3[0]&&piece.cord4[1]<piece.cord3[1])||(piece.cord4[0]=piece.cord2[0])||(piece.cord4[0]=piece.cord3[0])||(piece.cord4[0]=piece.cord1[0]))&&colors[piece.cord4[0]][piece.cord4[1]]!=SquareColor.TRANSPARENT){
-                return true;
-            }
+            
             return false;
+        }
+        
+        
+
         void SetPieceColors() {
             colors[piece.cord1[0]][piece.cord1[1]] = piece.color;
             colors[piece.cord2[0]][piece.cord2[1]] = piece.color;
@@ -67,15 +87,21 @@ public class GridDisplay : MonoBehaviour
 
 
         
-        int actualTickUpdate = 100;
+        int actualTickUpdate = 0;
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
-            if (actualTickUpdate == 500) {
-                DownPiece();
+            if (actualTickUpdate == 10) {
+                if (isPosed()){
+                    piece = new Piece();
+                    SetPieceColors();
+                }
+                else{
+                    DownPiece();
+                }
                 actualTickUpdate = 0;
             }
             else {
