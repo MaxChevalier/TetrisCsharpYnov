@@ -84,34 +84,30 @@ public class _GridDisplay : MonoBehaviour
                 throw new System.FormatException($"Line {y} of provided grid does not have the right number of columns.");
             }
             for(int x = 0; x < colors[y].Count; x++){
-                squares[y*this.height + x].color = colors[y][x];
+                squares[y*this.width + x].color = colors[y][x];
             }
         }
     }
 
     void OnRotate(){
-        Debug.Log("Rotate");
         if(this.Rotate != null){
             this.Rotate();
         }
     }
 
     void OnMoveLeft(){
-        Debug.Log("MoveLeft");
         if(this.MoveLeft != null){
             this.MoveLeft();
         }
     }
 
     void OnMoveRight(){
-        Debug.Log("MoveRight");
         if(this.MoveRight != null){
             this.MoveRight();
         }
     }
 
     void OnRush(){
-        Debug.Log("Rush");
         if(this.MoveRight != null){
             this.MoveRight();
         }
