@@ -1,4 +1,6 @@
-
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Piece {
     List<int> cord1 = new List<int>();
