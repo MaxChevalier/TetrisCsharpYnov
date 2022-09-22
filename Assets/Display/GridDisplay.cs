@@ -16,10 +16,10 @@ public class GridDisplay : MonoBehaviour
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
 
         List<List<SquareColor>> colors = new List<List<SquareColor>>();
-        for (int i = 0; i < 22; i++)
+        for (int j = 0; j < 22; j++)
         {
             List<SquareColor> row = new List<SquareColor>();
-            for (int j = 0; j < 10; j++)
+            for (int i = 0; i < 10; i++)
             {
                 row.Add(SquareColor.TRANSPARENT);
             }
@@ -42,17 +42,47 @@ public class GridDisplay : MonoBehaviour
                 return true;
             }
             return false;
+        void SetPieceColors() {
+            colors[piece.cord1[0]][piece.cord1[1]] = piece.color;
+            colors[piece.cord2[0]][piece.cord2[1]] = piece.color;
+            colors[piece.cord3[0]][piece.cord3[1]] = piece.color;
+            colors[piece.cord4[0]][piece.cord4[1]] = piece.color;
+        }
+
+        void RemovePieceColors() {
+            colors[piece.cord1[0]][piece.cord1[1]] = SquareColor.TRANSPARENT;
+            colors[piece.cord2[0]][piece.cord2[1]] = SquareColor.TRANSPARENT;
+            colors[piece.cord3[0]][piece.cord3[1]] = SquareColor.TRANSPARENT;
+            colors[piece.cord4[0]][piece.cord4[1]] = SquareColor.TRANSPARENT;
+        }
+
+        void DownPiece() {
+            RemovePieceColors();
+            piece.cord1[0] = piece.cord1[0] + 1;
+            piece.cord2[0] = piece.cord2[0] + 1;
+            piece.cord3[0] = piece.cord3[0] + 1;
+            piece.cord4[0] = piece.cord4[0] + 1;
+            SetPieceColors();
         }
 
 
         
+        int actualTickUpdate = 100;
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
+            if (actualTickUpdate == 500) {
+                DownPiece();
+                actualTickUpdate = 0;
+            }
+            else {
+                actualTickUpdate++;
+            }
             _grid.SetColors(colors);
+            
         });
 
         // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer
