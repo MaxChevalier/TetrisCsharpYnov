@@ -25,6 +25,14 @@ public class GridDisplay : MonoBehaviour
             }
             colors.Add(row);
         }
+
+        Piece piece = new Piece();
+
+        bool isPosed(){
+            if ((piece.cord1[0]=piece.cord2[0]&&piece.cord1[1]<piece.cord2[1])||(piece.cord1[0]=piece.cord3[0]&&piece.cord1[1]<piece.cord3[1])||(piece.cord1[0]=piece.cord4[0]&&piece.cord1[1]<piece.cord4[1])){
+                
+            }
+        }
         
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.

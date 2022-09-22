@@ -1,6 +1,6 @@
 
 
-public class piece {
+public class Piece {
     List<int> cord1 = new List<int>();
     List<int> cord2 = new List<int>();
     List<int> cord3 = new List<int>();
