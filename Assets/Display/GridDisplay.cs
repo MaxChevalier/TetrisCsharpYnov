@@ -29,10 +29,22 @@ public class GridDisplay : MonoBehaviour
         Piece piece = new Piece();
 
         bool isPosed(){
-            if ((piece.cord1[0]=piece.cord2[0]&&piece.cord1[1]<piece.cord2[1])||(piece.cord1[0]=piece.cord3[0]&&piece.cord1[1]<piece.cord3[1])||(piece.cord1[0]=piece.cord4[0]&&piece.cord1[1]<piece.cord4[1])){
-                
+            if (((piece.cord1[0]=piece.cord2[0]&&piece.cord1[1]<piece.cord2[1])||(piece.cord1[0]=piece.cord3[0]&&piece.cord1[1]<piece.cord3[1])||(piece.cord1[0]=piece.cord4[0]&&piece.cord1[1]<piece.cord4[1])||(piece.cord1[0]=piece.cord4[0])||(piece.cord1[0]=piece.cord3[0])||(piece.cord1[0]=piece.cord2[0]))&&colors[piece.cord1[0]][piece.cord1[1]]!=SquareColor.TRANSPARENT){
+                return true;
             }
+            if (((piece.cord2[0]=piece.cord1[0]&&piece.cord2[1]<piece.cord1[1])||(piece.cord2[0]=piece.cord3[0]&&piece.cord2[1]<piece.cord3[1])||(piece.cord2[0]=piece.cord4[0]&&piece.cord2[1]<piece.cord4[1])||(piece.cord2[0]=piece.cord4[0])||(piece.cord2[0]=piece.cord3[0])||(piece.cord2[0]=piece.cord1[0]))&&colors[piece.cord2[0]][piece.cord2[1]]!=SquareColor.TRANSPARENT){
+                return true;
+            }
+            if (((piece.cord3[0]=piece.cord1[0]&&piece.cord3[1]<piece.cord1[1])||(piece.cord3[0]=piece.cord2[0]&&piece.cord3[1]<piece.cord2[1])||(piece.cord3[0]=piece.cord4[0]&&piece.cord3[1]<piece.cord4[1])||(piece.cord3[0]=piece.cord4[0])||(piece.cord3[0]=piece.cord2[0])||(piece.cord3[0]=piece.cord1[0]))&&colors[piece.cord3[0]][piece.cord3[1]]!=SquareColor.TRANSPARENT){
+                return true;
+            }
+            if (((piece.cord4[0]=piece.cord1[0]&&piece.cord4[1]<piece.cord1[1])||(piece.cord4[0]=piece.cord2[0]&&piece.cord4[1]<piece.cord2[1])||(piece.cord4[0]=piece.cord3[0]&&piece.cord4[1]<piece.cord3[1])||(piece.cord4[0]=piece.cord2[0])||(piece.cord4[0]=piece.cord3[0])||(piece.cord4[0]=piece.cord1[0]))&&colors[piece.cord4[0]][piece.cord4[1]]!=SquareColor.TRANSPARENT){
+                return true;
+            }
+            return false;
         }
+
+
         
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
