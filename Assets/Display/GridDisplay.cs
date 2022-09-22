@@ -15,16 +15,26 @@ public class GridDisplay : MonoBehaviour
     public static void Initialize(){
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
 
-        for(int y = 0; y < 22; y++){
-            for(int x = 0; x < 10; x++){
-                
+        List<List<SquareColor>> colors = new List<List<SquareColor>>();
+        for (int i = 0; i < 22; i++)
+        {
+            List<SquareColor> row = new List<SquareColor>();
+            for (int j = 0; j < 10; j++)
+            {
+                row.Add(SquareColor.TRANSPARENT);
             }
+            colors.Add(row);
         }
         
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
+
+        SetTickFunction(() => {
+            _grid.SetColors(colors);
+        });
+
         // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer
         //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
         //        et la flèche du bas du clavier.
