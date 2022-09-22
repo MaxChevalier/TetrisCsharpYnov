@@ -35,6 +35,8 @@ public class GridDisplay : MonoBehaviour
             colors[piece.cord4[0]][piece.cord4[1]] = piece.color;
         }
 
+        SetPieceColors();
+
         void RemovePieceColors() {
             colors[piece.cord1[0]][piece.cord1[1]] = SquareColor.TRANSPARENT;
             colors[piece.cord2[0]][piece.cord2[1]] = SquareColor.TRANSPARENT;
@@ -51,14 +53,14 @@ public class GridDisplay : MonoBehaviour
             SetPieceColors();
         }
         
-        int actualTickUpdate = 100;
+        int actualTickUpdate = 0;
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
-            if (actualTickUpdate == 500) {
+            if (actualTickUpdate == 100) {
                 DownPiece();
                 actualTickUpdate = 0;
             }
