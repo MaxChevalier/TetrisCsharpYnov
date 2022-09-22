@@ -14,15 +14,28 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
+
+        for(int y = 0; y < 22; y++){
+            for(int x = 0; x < 10; x++){
+                
+            }
+        }
+        
+
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
         //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
-        // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer 
+        // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer
         //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
         //        et la flèche du bas du clavier.
-        //
+
+
+
+        
+
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
                   
+        
     }
 
     // Paramètre la fonction devant être appelée à chaque tick. 
@@ -87,6 +100,9 @@ public class GridDisplay : MonoBehaviour
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();
     }
+
+
+
 
 
 /// Les lignes au delà de celle-ci ne vous concernent pas.
