@@ -112,12 +112,9 @@ public class GridDisplay : MonoBehaviour
     }
 
 
-<<<<<<< HEAD
-=======
 
 
 
->>>>>>> ff07f67ee7966de772eaf3cb3bbe4b7da326501e
 /// Les lignes au delà de celle-ci ne vous concernent pas.
 
     private static _GridDisplay _grid = null;
