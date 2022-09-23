@@ -14,8 +14,9 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
+        Piece piece = new Piece();
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
-
+        
         List<List<SquareColor>> colors = new List<List<SquareColor>>();
         for (int j = 0; j < 22; j++)
         {
@@ -27,7 +28,7 @@ public class GridDisplay : MonoBehaviour
             colors.Add(row);
         }
 
-        Piece piece = new Piece();
+        
 
         bool isColliding(List<int> cord, Piece piece, string direction){
             if (direction=="down"){
@@ -69,6 +70,8 @@ public class GridDisplay : MonoBehaviour
             colors[piece.cord4[0]][piece.cord4[1]] = piece.color;
         }
 
+        SetPieceColors();
+
         void RemovePieceColors() {
             colors[piece.cord1[0]][piece.cord1[1]] = SquareColor.TRANSPARENT;
             colors[piece.cord2[0]][piece.cord2[1]] = SquareColor.TRANSPARENT;
@@ -85,8 +88,38 @@ public class GridDisplay : MonoBehaviour
             SetPieceColors();
         }
 
+        void rightPiece() {
+            RemovePieceColors();
+            piece.cord1[1] = piece.cord1[1] + 1;
+            piece.cord2[1] = piece.cord2[1] + 1;
+            piece.cord3[1] = piece.cord3[1] + 1;
+            piece.cord4[1] = piece.cord4[1] + 1;
+            SetPieceColors();
+        }
 
-        
+        void leftPiece() {
+            RemovePieceColors();
+            piece.cord1[1] = piece.cord1[1] - 1;
+            piece.cord2[1] = piece.cord2[1] - 1;
+            piece.cord3[1] = piece.cord3[1] - 1;
+            piece.cord4[1] = piece.cord4[1] - 1;
+            SetPieceColors();
+        }
+
+        // void rushPiece() {
+        //     RemovePieceColors();
+        //     piece.cord1[0] = piece.cord1[0] + 10;
+        //     piece.cord2[0] = piece.cord2[0] + 10;
+        //     piece.cord3[0] = piece.cord3[0] + 10;
+        //     piece.cord4[0] = piece.cord4[0] + 10;
+        //     SetPieceColors();
+        // }
+
+
+        _grid.MoveRight = rightPiece;
+        _grid.MoveLeft = leftPiece;
+        // _grid.Rush = rushPiece;
+
         int actualTickUpdate = 0;
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
