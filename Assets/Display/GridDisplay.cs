@@ -32,13 +32,89 @@ public class GridDisplay : MonoBehaviour
         
 
         bool isColliding(List<int> cord, Piece piece, string direction){
-            if (direction=="down"){
-                if ((colors[cord[0] + 1][cord[1]] == SquareColor.TRANSPARENT)||(cord[1]==piece.cord1[1]&&cord[0]+1==piece.cord1[0])||(cord[1]==piece.cord2[1]&&cord[0]+1==piece.cord2[0])||(cord[1]==piece.cord3[1]&&cord[0]+1==piece.cord3[0])||(cord[1]==piece.cord4[1]&&cord[0]+1==piece.cord4[0])) 
+           int indexOfCord = 0;
+           int numOfMoves= 0;
+           int indexOfCordNoMove= 0;
+           switch (direction) {
+            case "left":
+                indexOfCord = 1;
+                numOfMoves = -1;
+                indexOfCordNoMove = 0;
+                if (colors[cord[0]][cord[1]-1] == SquareColor.TRANSPARENT)
                 {
                     return false;
                 }
-            }
+                break;
+            case "right":
+                indexOfCord = 1;
+                numOfMoves = 1;
+                indexOfCordNoMove = 0;
+                if (colors[cord[0]][cord[1]+1] == SquareColor.TRANSPARENT)
+                {
+                    return false;
+                }
+                break;
+            case "down":
+                indexOfCord = 0;
+                numOfMoves = 1;
+                indexOfCordNoMove = 1;
+                if (colors[cord[0]-1][cord[1]] == SquareColor.TRANSPARENT)
+                {
+                    return false;
+                }
+                break;
+           }
+                if ((cord[indexOfCordNoMove]==piece.cord1[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord1[indexOfCord])||
+                (cord[indexOfCordNoMove]==piece.cord2[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord2[indexOfCord])||
+                (cord[indexOfCordNoMove]==piece.cord3[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord3[indexOfCord])||
+                (cord[indexOfCordNoMove]==piece.cord4[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord4[indexOfCord])) 
+                {
+                    return false;
+                }
+            
             return true;
+        }
+
+        bool isCollidingRight(){
+            if (piece.cord1[1]==9||piece.cord2[1]==9||piece.cord3[1]==9||piece.cord4[1]==9){
+                return true;
+            }else{
+                if (isColliding(piece.cord1, piece, "right")){
+                    return true;
+                }
+                if (isColliding(piece.cord2, piece, "right")){
+                    return true;
+                }
+                if (isColliding(piece.cord3, piece, "right")){
+                    return true;
+                }
+                if (isColliding(piece.cord4, piece, "right")){
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        bool isCollidingLeft(){
+            if (piece.cord1[1]==0||piece.cord2[1]==0||piece.cord3[1]==0||piece.cord4[1]==0){
+                return true;
+            }else{
+                if (isColliding(piece.cord1, piece, "left")){
+                    return true;
+                }
+                if (isColliding(piece.cord2, piece, "left")){
+                    return true;
+                }
+                if (isColliding(piece.cord3, piece, "left")){
+                    return true;
+                }
+                if (isColliding(piece.cord4, piece, "left")){
+                    return true;
+                }
+            }
+            
+            return false;
         }
 
         bool isPosed(){
@@ -90,20 +166,33 @@ public class GridDisplay : MonoBehaviour
         }
 
         void rightPiece() {
-            RemovePieceColors();
-            piece.cord1[1] = piece.cord1[1] + 1;
-            piece.cord2[1] = piece.cord2[1] + 1;
-            piece.cord3[1] = piece.cord3[1] + 1;
-            piece.cord4[1] = piece.cord4[1] + 1;
-            SetPieceColors();
+            if (!isCollidingRight()){
+                RemovePieceColors();
+                piece.cord1[1] = piece.cord1[1] + 1;
+                piece.cord2[1] = piece.cord2[1] + 1;
+                piece.cord3[1] = piece.cord3[1] + 1;
+                piece.cord4[1] = piece.cord4[1] + 1;
+                SetPieceColors();
+            }
         }
 
         void leftPiece() {
+            if (!isCollidingLeft()){
+                RemovePieceColors();
+                piece.cord1[1] = piece.cord1[1] - 1;
+                piece.cord2[1] = piece.cord2[1] - 1;
+                piece.cord3[1] = piece.cord3[1] - 1;
+                piece.cord4[1] = piece.cord4[1] - 1;
+                SetPieceColors();
+            }
+        }
+
+        void rushPiece() {
             RemovePieceColors();
-            piece.cord1[1] = piece.cord1[1] - 1;
-            piece.cord2[1] = piece.cord2[1] - 1;
-            piece.cord3[1] = piece.cord3[1] - 1;
-            piece.cord4[1] = piece.cord4[1] - 1;
+            piece.cord1[0] = piece.cord1[0] + 1;
+            piece.cord2[0] = piece.cord2[0] + 1;
+            piece.cord3[0] = piece.cord3[0] + 1;
+            piece.cord4[0] = piece.cord4[0] + 1;
             SetPieceColors();
         }
 
@@ -198,12 +287,13 @@ public class GridDisplay : MonoBehaviour
         //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
         //        et la flèche du bas du clavier.
 
-
+        SetMoveLeftFunction(leftPiece);
+        SetMoveRightFunction(rightPiece);
+        SetRushFunction(rushPiece);
 
         
 
-        // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!
-                  
+        // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!  
         
     }
 

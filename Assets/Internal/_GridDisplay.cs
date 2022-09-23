@@ -113,7 +113,6 @@ public class _GridDisplay : MonoBehaviour
         }
     }
 
-
     IEnumerator LaunchTicks(){
         yield return new WaitForSeconds(tick);
         if(Tick != null){

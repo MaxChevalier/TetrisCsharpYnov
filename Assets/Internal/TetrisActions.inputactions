@@ -67,6 +67,17 @@
                 },
                 {
                     "name": "",
+                    "id": "25fde2df-1aec-4ec6-a26a-0864c85203e1",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2cc5552f-8067-4c82-b2da-9f418cdf23ad",
                     "path": "Keyboard/RightArrow",
                     "interactions": "",
@@ -124,6 +135,39 @@
                     "name": "",
                     "id": "f9228295-eed7-4b67-83d2-e9ecd02e1413",
                     "path": "Keyboard/Digit0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c1dbed23-92a1-4392-a370-8804f2ec1139",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b14c1249-9977-4f95-9392-59a1be462e55",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotate",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f678d626-1b3d-4d9c-bae0-6d42b95e1579",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
