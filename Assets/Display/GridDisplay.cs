@@ -58,7 +58,7 @@ public class GridDisplay : MonoBehaviour
                 indexOfCord = 0;
                 numOfMoves = 1;
                 indexOfCordNoMove = 1;
-                if (colors[cord[0]-1][cord[1]] == SquareColor.TRANSPARENT)
+                if (colors[cord[0]+1][cord[1]] == SquareColor.TRANSPARENT)
                 {
                     return false;
                 }
@@ -188,15 +188,6 @@ public class GridDisplay : MonoBehaviour
         }
 
         void rushPiece() {
-            RemovePieceColors();
-            piece.cord1[0] = piece.cord1[0] + 1;
-            piece.cord2[0] = piece.cord2[0] + 1;
-            piece.cord3[0] = piece.cord3[0] + 1;
-            piece.cord4[0] = piece.cord4[0] + 1;
-            SetPieceColors();
-        }
-
-        void rushPiece() {
             for (int i = 0; i < 22; i++){
                 if (isPosed()){
                     Score();
@@ -218,17 +209,18 @@ public class GridDisplay : MonoBehaviour
 
         // }
 
-        void gameOver(){
+        bool gameOver(){
             if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT){
                 UnityEngine.Debug.Log("Game Over");
                 TriggerGameOver();
-                
+                return true;
             }
+            return false;
             
         }
 
         
-
+        //if gameover true pas de nouvelle piece
         void Score(){
             // la fonction supprime les lignes pleines et les lignes au dessus descendent
             for(int i = 0; i < 22; i++){
@@ -252,9 +244,7 @@ public class GridDisplay : MonoBehaviour
         }
 
 
-        _grid.MoveRight = rightPiece;
-        _grid.MoveLeft = leftPiece;
-        _grid.Rush = rushPiece;
+        
         // _grid.Rotate = turnPiece;
         int actualTickUpdate = 0;
 
@@ -268,6 +258,7 @@ public class GridDisplay : MonoBehaviour
                     Score();
                     UnityEngine.Debug.Log(score);
                     piece = new Piece();
+                    
                     gameOver();
                     SetPieceColors();
                 }
