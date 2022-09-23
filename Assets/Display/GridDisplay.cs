@@ -193,6 +193,7 @@ public class GridDisplay : MonoBehaviour
                     Score();
                     UnityEngine.Debug.Log(score);
                     piece = new Piece();
+                    gameOver();
                     SetPieceColors();
                     return;
                 }
@@ -203,13 +204,10 @@ public class GridDisplay : MonoBehaviour
             }
         }
 
-        bool gameOver(){
+        void gameOver(){
             if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT){
-                UnityEngine.Debug.Log("Game Over");
                 TriggerGameOver();
-                return true;
             }
-            return false;
             
         }
 
@@ -252,13 +250,7 @@ public class GridDisplay : MonoBehaviour
             if (actualTickUpdate >= 100) {
                 if (isPosed()){
                     Score();
-                    UnityEngine.Debug.Log(score);
-                    if(gameOver() != true){
-                        piece = new Piece();
-                        return;
-                    }
-                    
-                    
+                    piece = new Piece();
                     gameOver();
                     SetPieceColors();
                 }
