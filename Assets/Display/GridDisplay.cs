@@ -15,6 +15,7 @@ public class GridDisplay : MonoBehaviour
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         Piece piece = new Piece();
+        int score = 0;
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         
         List<List<SquareColor>> colors = new List<List<SquareColor>>();
@@ -187,17 +188,64 @@ public class GridDisplay : MonoBehaviour
         }
 
         void rushPiece() {
-            RemovePieceColors();
-            piece.cord1[0] = piece.cord1[0] + 1;
-            piece.cord2[0] = piece.cord2[0] + 1;
-            piece.cord3[0] = piece.cord3[0] + 1;
-            piece.cord4[0] = piece.cord4[0] + 1;
-            SetPieceColors();
+            for (int i = 0; i < 22; i++){
+                if (isPosed()){
+                    Score();
+                    UnityEngine.Debug.Log(score);
+                    piece = new Piece();
+                    SetPieceColors();
+                    return;
+                }
+                else{
+                    DownPiece();
+                }
+                _grid.SetColors(colors);
+            }
+        }
+
+        // void turnPiece(){
+        //     RemovePieceColors();
+
+
+        // }
+
+        bool gameOver(){
+            if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT){
+                UnityEngine.Debug.Log("Game Over");
+                TriggerGameOver();
+                return true;
+            }
+            return false;
+            
+        }
+
+        
+        //if gameover true pas de nouvelle piece
+        void Score(){
+            // la fonction supprime les lignes pleines et les lignes au dessus descendent
+            for(int i = 0; i < 22; i++){
+                bool isFull = true;
+                for(int j = 0; j < 10; j++){
+                    if (colors[i][j] == SquareColor.TRANSPARENT){
+                        isFull = false;
+                    }
+                }
+                if (isFull){
+                    score += 100;
+                    for(int k = i; k > 0; k--){
+                        for(int l = 0; l < 10; l++){
+                            colors[k][l] = colors[k-1][l];
+                        }
+                    }
+                }
+            }
+
+
         }
 
 
         
-
+        // _grid.Rotate = turnPiece;
         int actualTickUpdate = 0;
 
         // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
@@ -207,7 +255,15 @@ public class GridDisplay : MonoBehaviour
         SetTickFunction(() => {
             if (actualTickUpdate == 100) {
                 if (isPosed()){
-                    piece = new Piece();
+                    Score();
+                    UnityEngine.Debug.Log(score);
+                    if(gameOver() != true){
+                        piece = new Piece();
+                        return;
+                    }
+                    
+                    
+                    gameOver();
                     SetPieceColors();
                 }
                 else{

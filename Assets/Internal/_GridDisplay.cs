@@ -71,7 +71,7 @@ public class _GridDisplay : MonoBehaviour
     }
 
     public void TriggerGameOver(){
-        this.gameOver.SetActive(true);
+        //this.gameOver.SetActive(true);
         this.StopCoroutine(this.tickCoroutine);
     }
 
