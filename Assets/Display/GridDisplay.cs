@@ -239,9 +239,11 @@ public class GridDisplay : MonoBehaviour
                     }
                 }
             }
-
+            SetScore(score);
 
         }
+
+        
 
 
         
@@ -253,15 +255,18 @@ public class GridDisplay : MonoBehaviour
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
-            if (actualTickUpdate == 100) {
+            if (actualTickUpdate == 1) {
+                UnityEngine.Debug.Log("Tick");
                 if (isPosed()){
                     Score();
                     UnityEngine.Debug.Log(score);
-                    gameOver();
                     if(gameOver() != true){
                         piece = new Piece();
                         return;
                     }
+                    
+                    
+                    gameOver();
                     SetPieceColors();
                 }
                 else{

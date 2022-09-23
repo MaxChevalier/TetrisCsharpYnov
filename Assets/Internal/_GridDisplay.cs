@@ -18,7 +18,7 @@ public class _GridDisplay : MonoBehaviour
 
     public float squareSize = 0.4f;
 
-    public float tick = 1.0f;
+    public float tick = 0.1f;
 
     public TickFunction Tick = null;
     public RotateFunction Rotate = null;
@@ -44,7 +44,7 @@ public class _GridDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Start()
     {
         this.tickCoroutine = StartCoroutine(LaunchTicks());
     }
@@ -71,7 +71,7 @@ public class _GridDisplay : MonoBehaviour
     }
 
     public void TriggerGameOver(){
-        //this.gameOver.SetActive(true);
+        this.gameOver.SetActive(true);
         this.StopCoroutine(this.tickCoroutine);
     }
 
@@ -113,10 +113,13 @@ public class _GridDisplay : MonoBehaviour
         }
     }
 
+
     IEnumerator LaunchTicks(){
-        yield return new WaitForSeconds(tick);
-        if(Tick != null){
-            Tick();
+        while(true){
+            yield return new WaitForSeconds(tick);
+            if(Tick != null){
+                Tick();
+            }
         }
     }
 }
