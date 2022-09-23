@@ -72,19 +72,16 @@ public class GridDisplay : MonoBehaviour
             SetPieceColors();
         }
 
-        // void rushPiece() {
-        //     RemovePieceColors();
-        //     piece.cord1[0] = piece.cord1[0] + 10;
-        //     piece.cord2[0] = piece.cord2[0] + 10;
-        //     piece.cord3[0] = piece.cord3[0] + 10;
-        //     piece.cord4[0] = piece.cord4[0] + 10;
-        //     SetPieceColors();
-        // }
+        void rushPiece() {
+            RemovePieceColors();
+
+            SetPieceColors();
+        }
 
 
         _grid.MoveRight = rightPiece;
         _grid.MoveLeft = leftPiece;
-        // _grid.Rush = rushPiece;
+        _grid.Rush = rushPiece;
 
         int actualTickUpdate = 0;
 
