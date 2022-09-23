@@ -57,7 +57,7 @@ public class GridDisplay : MonoBehaviour
                 indexOfCord = 0;
                 numOfMoves = 1;
                 indexOfCordNoMove = 1;
-                if (colors[cord[0]-1][cord[1]] == SquareColor.TRANSPARENT)
+                if (colors[cord[0]+1][cord[1]] == SquareColor.TRANSPARENT)
                 {
                     return false;
                 }
