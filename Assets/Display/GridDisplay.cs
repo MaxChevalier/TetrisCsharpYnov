@@ -203,12 +203,6 @@ public class GridDisplay : MonoBehaviour
             }
         }
 
-        // void turnPiece(){
-        //     RemovePieceColors();
-
-
-        // }
-
         bool gameOver(){
             if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT){
                 UnityEngine.Debug.Log("Game Over");
@@ -253,7 +247,7 @@ public class GridDisplay : MonoBehaviour
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
-            if (actualTickUpdate == 100) {
+            if (actualTickUpdate >= 100) {
                 if (isPosed()){
                     Score();
                     UnityEngine.Debug.Log(score);
@@ -283,6 +277,11 @@ public class GridDisplay : MonoBehaviour
         SetMoveLeftFunction(leftPiece);
         SetMoveRightFunction(rightPiece);
         SetRushFunction(rushPiece);
+        SetRotateFunction(() => {
+            RemovePieceColors();
+            piece.turn(colors);
+            SetPieceColors();
+        });
 
         
 

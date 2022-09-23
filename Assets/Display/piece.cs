@@ -79,4 +79,40 @@ public class Piece {
 
         }
     }
+
+    public void turn(List<List<SquareColor>> colors){
+        int minCordY = 22;
+        int maxCordY = 0;
+        int minCordX = 10;
+        int maxCordX = 0;
+        foreach (List<int> cord in new List<List<int>> { cord1, cord2, cord3, cord4 }) {
+            if (cord[0] < minCordY) {
+                minCordY = cord[0];
+            }
+            if (cord[0] > maxCordY) {
+                maxCordY = cord[0];
+            }
+            if (cord[1] < minCordX) {
+                minCordX = cord[1];
+            }
+            if (cord[1] > maxCordX) {
+                maxCordX = cord[1];
+            }
+        }
+        int midCordY = (minCordY + maxCordY) / 2;
+        int midCordX = (minCordX + maxCordX) / 2;
+        List<List<int>> newCords = new List<List<int>>();
+        foreach (List<int> cord in new List<List<int>> { cord1, cord2, cord3, cord4 }) {
+            int newCordY = midCordY + (cord[1] - midCordX);
+            int newCordX = midCordX - (cord[0] - midCordY);
+            if (newCordY < 0 || newCordY > 21 || newCordX < 0 || newCordX > 9 || colors[newCordY][newCordX] != SquareColor.TRANSPARENT) {
+                return;
+            }
+            newCords.Add(new List<int> { newCordY, newCordX });
+        }
+        cord1 = newCords[0];
+        cord2 = newCords[1];
+        cord3 = newCords[2];
+        cord4 = newCords[3];
+    }
 }
