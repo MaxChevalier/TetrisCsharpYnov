@@ -257,7 +257,11 @@ public class GridDisplay : MonoBehaviour
                 if (isPosed()){
                     Score();
                     UnityEngine.Debug.Log(score);
-                    piece = new Piece();
+                    if(gameOver() != true){
+                        piece = new Piece();
+                        return;
+                    }
+                    
                     
                     gameOver();
                     SetPieceColors();
