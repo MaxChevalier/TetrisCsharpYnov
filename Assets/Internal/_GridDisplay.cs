@@ -18,7 +18,7 @@ public class _GridDisplay : MonoBehaviour
 
     public float squareSize = 0.4f;
 
-    public float tick = 1.0f;
+    public float tick = 0.1f;
 
     public TickFunction Tick = null;
     public RotateFunction Rotate = null;
