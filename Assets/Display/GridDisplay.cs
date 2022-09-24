@@ -16,6 +16,9 @@ public class GridDisplay : MonoBehaviour
     public static void Initialize(){
         Piece piece = new Piece();
         int score = 0;
+        int lvl = 1;
+        int lines = 0;
+
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         
         List<List<SquareColor>> colors = new List<List<SquareColor>>();
@@ -195,7 +198,7 @@ public class GridDisplay : MonoBehaviour
                     piece = new Piece();
                     gameOver();
                     SetPieceColors();
-                    return;
+                }
                 }
                 else{
                     DownPiece();
@@ -223,6 +226,8 @@ public class GridDisplay : MonoBehaviour
                     }
                 }
                 if (isFull){
+                    lines+=1;
+                    lvl = ((int)lines/10)+1;
                     score += 100;
                     for(int k = i; k > 0; k--){
                         for(int l = 0; l < 10; l++){
@@ -247,7 +252,7 @@ public class GridDisplay : MonoBehaviour
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
-            if (actualTickUpdate >= 100) {
+            if (actualTickUpdate >= (100/lvl)) {
                 if (isPosed()){
                     Score();
                     piece = new Piece();
