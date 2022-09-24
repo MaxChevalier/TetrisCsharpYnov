@@ -245,7 +245,7 @@ public class GridDisplay : MonoBehaviour
                 } 
             }
             if(nbligne > 1){
-                    score += nbligne*110*lvl;
+                    score += (int)(((nbligne*100)+((Math.Pow(nbligne,2)/2)*10))*lvl);
             }
             else if(nbligne == 1){
                 score += 100*lvl;
