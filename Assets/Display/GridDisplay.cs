@@ -228,7 +228,7 @@ public class GridDisplay : MonoBehaviour
                 if (isFull){
                     lines+=1;
                     lvl = ((int)lines/10)+1;
-                    score += 100;
+                    score += 100*lvl;
                     for(int k = i; k > 0; k--){
                         for(int l = 0; l < 10; l++){
                             colors[k][l] = colors[k-1][l];
