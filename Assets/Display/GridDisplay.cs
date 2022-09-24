@@ -1,3 +1,4 @@
+using System;
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ public class GridDisplay : MonoBehaviour
         int score = 0;
         int lvl = 1;
         int lines = 0;
+        double speed = 100;
 
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         
@@ -228,6 +230,7 @@ public class GridDisplay : MonoBehaviour
                 if (isFull){
                     lines+=1;
                     lvl = ((int)lines/10)+1;
+                    speed = 100-(Math.Pow(lvl,1.5f)*1.5f);
                     score += 100*lvl;
                     for(int k = i; k > 0; k--){
                         for(int l = 0; l < 10; l++){
@@ -252,7 +255,7 @@ public class GridDisplay : MonoBehaviour
         //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
 
         SetTickFunction(() => {
-            if (actualTickUpdate >= (100/lvl)) {
+            if (actualTickUpdate >= speed) {
                 if (isPosed()){
                     Score();
                     piece = new Piece();
