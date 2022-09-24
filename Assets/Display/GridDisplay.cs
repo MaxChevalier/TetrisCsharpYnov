@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GridDisplay : MonoBehaviour
@@ -14,10 +15,12 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
-        Piece piece = new Piece();
+        Piece piece = new Piece(1);
+        piece.color = SquareColor.TRANSPARENT;
         int score = 0;
         int lvl = 1;
         int lines = 0;
+        List<int> paque = new List<int>(){};
 
         // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
         
@@ -194,8 +197,7 @@ public class GridDisplay : MonoBehaviour
             for (int i = 0; i < 22; i++){
                 if (isPosed()){
                     Score();
-                    UnityEngine.Debug.Log(score);
-                    piece = new Piece();
+                    generatePiece();
                     gameOver();
                     SetPieceColors();
                     return;
@@ -217,7 +219,9 @@ public class GridDisplay : MonoBehaviour
         
         //if gameover true pas de nouvelle piece
         void Score(){
+            int nbligne = 0;
             // la fonction supprime les lignes pleines et les lignes au dessus descendent
+            // si plusieur ligne son supprmé on ajoute le nombre de ligne supprimé multiplié par 10 au score
             for(int i = 0; i < 22; i++){
                 bool isFull = true;
                 for(int j = 0; j < 10; j++){
@@ -226,20 +230,50 @@ public class GridDisplay : MonoBehaviour
                     }
                 }
                 if (isFull){
+                    nbligne++;
                     lines+=1;
                     lvl = ((int)lines/10)+1;
-                    score += 100*lvl;
                     for(int k = i; k > 0; k--){
                         for(int l = 0; l < 10; l++){
                             colors[k][l] = colors[k-1][l];
+
                         }
                     }
-                }
+                } 
             }
+            if(nbligne > 1){
+                    score += nbligne*110*lvl;
+            }
+            else if(nbligne == 1){
+                score += 100*lvl;
+            }
+            
             SetScore(score);
 
         }
 
+        void generatePiece(){
+            if(paque.Count == 0){
+                
+                paque = new List<int>(){1,2,3,4,5,6,7};
+                var count = paque.Count;
+                var last = count - 1;
+                for (var i = 0; i < last; ++i) {
+                    var r = UnityEngine.Random.Range(i, count);
+                    var tmp = paque[i];
+                    paque[i] = paque[r];
+                    paque[r] = tmp;
+                    
+                }
+                
+            }
+            piece = new Piece(paque[0]);
+
+            paque.RemoveAt(0);
+
+
+        }
+        generatePiece();
         
 
 
@@ -255,7 +289,7 @@ public class GridDisplay : MonoBehaviour
             if (actualTickUpdate >= (100/lvl)) {
                 if (isPosed()){
                     Score();
-                    piece = new Piece();
+                    generatePiece();
                     gameOver();
                     SetPieceColors();
                 }
@@ -368,7 +402,10 @@ public class GridDisplay : MonoBehaviour
     }
 
     void Start(){
+
         Initialize();
     }
     
 }
+
+
