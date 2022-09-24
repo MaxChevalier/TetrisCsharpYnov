@@ -198,6 +198,7 @@ public class GridDisplay : MonoBehaviour
                     piece = new Piece();
                     gameOver();
                     SetPieceColors();
+                    return;
                 }
                 else{
                     DownPiece();
