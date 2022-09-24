@@ -9,11 +9,9 @@ public class Piece {
     public List<int> cord4 = new List<int>();
     public SquareColor color = SquareColor.TRANSPARENT;
 
-    Random rand = new Random();
 
-    public Piece(){
-        int random = rand.Next(1, 8);
-        switch (random){
+    public Piece(int nbtPiece){
+        switch (nbtPiece){
             case 1:
             //    [][][][]
                 cord1 = new List<int> { 0, 3 };
