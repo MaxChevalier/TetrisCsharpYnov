@@ -14,6 +14,7 @@ public class GridDisplay : MonoBehaviour
     // Largeur de la grille en nombre de cases
     public int width = 10;
 
+
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
         Piece piece = new Piece(1);
@@ -245,15 +246,18 @@ public class GridDisplay : MonoBehaviour
                 } 
             }
             if(nbligne > 1){
-                    score += nbligne*110*lvl;
+                    score += (int)(((nbligne*100)+((Math.Pow(nbligne,2)/2)*10))*lvl);
             }
             else if(nbligne == 1){
                 score += 100*lvl;
             }
             
+            AudioSource breakLineSound = GameObject.Find("BreakLineSound").GetComponent<AudioSource>();
+            breakLineSound.PlayOneShot(breakLineSound.clip);
             SetScore(score);
-
         }
+
+        
 
         void generatePiece(){
             if(paque.Count == 0){
