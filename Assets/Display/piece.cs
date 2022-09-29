@@ -7,7 +7,7 @@ public class Piece {
     public List<int> cord2 = new List<int>();
     public List<int> cord3 = new List<int>();
     public List<int> cord4 = new List<int>();
-    public SquareColor color = SquareColor.TRANSPARENT;
+    public SquareColor color;
 
 
     public Piece(int nbtPiece){

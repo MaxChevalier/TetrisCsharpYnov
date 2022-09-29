@@ -116,7 +116,7 @@ public class _GridDisplay : MonoBehaviour
 
     IEnumerator LaunchTicks(){
         while(true){
-            yield return new WaitForSeconds(0.01f);
+            yield return new WaitForSeconds(tick);
             if(Tick != null){
                 Tick();
             }
