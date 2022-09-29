@@ -19,13 +19,13 @@ public class GridDisplay : MonoBehaviour
     public static void Initialize(){
         Piece piece = new Piece(1);
         piece.color = SquareColor.TRANSPARENT;
-        int score = 0;
-        int lvl = 1;
-        int lines = 0;
         double speed = 100;
         List<int> paque = new List<int>(){};
+        int actualTickUpdate = 0;
 
-        // TODO : Complétez cette fonction de manière à appeler le code qui initialise votre jeu.
+        GameManager gameManager = new GameManager();
+
+        // generate grid of colors
         
         List<List<SquareColor>> colors = new List<List<SquareColor>>();
         for (int j = 0; j < 22; j++)
@@ -37,271 +37,31 @@ public class GridDisplay : MonoBehaviour
             }
             colors.Add(row);
         }
-
         
+        // action if Piece is posed
 
-        bool isColliding(List<int> cord, Piece piece, string direction){
-           int indexOfCord = 0;
-           int numOfMoves= 0;
-           int indexOfCordNoMove= 0;
-           switch (direction) {
-            case "left":
-                indexOfCord = 1;
-                numOfMoves = -1;
-                indexOfCordNoMove = 0;
-                if (colors[cord[0]][cord[1]-1] == SquareColor.TRANSPARENT)
-                {
-                    return false;
-                }
-                break;
-            case "right":
-                indexOfCord = 1;
-                numOfMoves = 1;
-                indexOfCordNoMove = 0;
-                if (colors[cord[0]][cord[1]+1] == SquareColor.TRANSPARENT)
-                {
-                    return false;
-                }
-                break;
-            case "down":
-                indexOfCord = 0;
-                numOfMoves = 1;
-                indexOfCordNoMove = 1;
-                if (colors[cord[0]+1][cord[1]] == SquareColor.TRANSPARENT)
-                {
-                    return false;
-                }
-                break;
-           }
-                if ((cord[indexOfCordNoMove]==piece.cord1[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord1[indexOfCord])||
-                (cord[indexOfCordNoMove]==piece.cord2[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord2[indexOfCord])||
-                (cord[indexOfCordNoMove]==piece.cord3[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord3[indexOfCord])||
-                (cord[indexOfCordNoMove]==piece.cord4[indexOfCordNoMove]&&cord[indexOfCord]+numOfMoves==piece.cord4[indexOfCord])) 
-                {
-                    return false;
-                }
-            
-            return true;
-        }
-
-        bool isCollidingRight(){
-            if (piece.cord1[1]==9||piece.cord2[1]==9||piece.cord3[1]==9||piece.cord4[1]==9){
-                return true;
-            }else{
-                if (isColliding(piece.cord1, piece, "right")){
-                    return true;
-                }
-                if (isColliding(piece.cord2, piece, "right")){
-                    return true;
-                }
-                if (isColliding(piece.cord3, piece, "right")){
-                    return true;
-                }
-                if (isColliding(piece.cord4, piece, "right")){
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-
-        bool isCollidingLeft(){
-            if (piece.cord1[1]==0||piece.cord2[1]==0||piece.cord3[1]==0||piece.cord4[1]==0){
-                return true;
-            }else{
-                if (isColliding(piece.cord1, piece, "left")){
-                    return true;
-                }
-                if (isColliding(piece.cord2, piece, "left")){
-                    return true;
-                }
-                if (isColliding(piece.cord3, piece, "left")){
-                    return true;
-                }
-                if (isColliding(piece.cord4, piece, "left")){
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-
-        bool isPosed(){
-            if (piece.cord1[0]==21||piece.cord2[0]==21||piece.cord3[0]==21||piece.cord4[0]==21){
-                return true;
-            }else{
-                if (isColliding(piece.cord1, piece, "down")){
-                    return true;
-                }
-                if (isColliding(piece.cord2, piece, "down")){
-                    return true;
-                }
-                if (isColliding(piece.cord3, piece, "down")){
-                    return true;
-                }
-                if (isColliding(piece.cord4, piece, "down")){
-                    return true;
-                }
-            }
-            
-            return false;
-        }
-        
-        
-
-        void SetPieceColors() {
-            colors[piece.cord1[0]][piece.cord1[1]] = piece.color;
-            colors[piece.cord2[0]][piece.cord2[1]] = piece.color;
-            colors[piece.cord3[0]][piece.cord3[1]] = piece.color;
-            colors[piece.cord4[0]][piece.cord4[1]] = piece.color;
-        }
-
-        SetPieceColors();
-
-        void RemovePieceColors() {
-            colors[piece.cord1[0]][piece.cord1[1]] = SquareColor.TRANSPARENT;
-            colors[piece.cord2[0]][piece.cord2[1]] = SquareColor.TRANSPARENT;
-            colors[piece.cord3[0]][piece.cord3[1]] = SquareColor.TRANSPARENT;
-            colors[piece.cord4[0]][piece.cord4[1]] = SquareColor.TRANSPARENT;
-        }
-
-        void DownPiece() {
-            RemovePieceColors();
-            piece.cord1[0] = piece.cord1[0] + 1;
-            piece.cord2[0] = piece.cord2[0] + 1;
-            piece.cord3[0] = piece.cord3[0] + 1;
-            piece.cord4[0] = piece.cord4[0] + 1;
-            SetPieceColors();
-        }
-
-        void rightPiece() {
-            if (!isCollidingRight()){
-                RemovePieceColors();
-                piece.cord1[1] = piece.cord1[1] + 1;
-                piece.cord2[1] = piece.cord2[1] + 1;
-                piece.cord3[1] = piece.cord3[1] + 1;
-                piece.cord4[1] = piece.cord4[1] + 1;
-                SetPieceColors();
-            }
-        }
-
-        void leftPiece() {
-            if (!isCollidingLeft()){
-                RemovePieceColors();
-                piece.cord1[1] = piece.cord1[1] - 1;
-                piece.cord2[1] = piece.cord2[1] - 1;
-                piece.cord3[1] = piece.cord3[1] - 1;
-                piece.cord4[1] = piece.cord4[1] - 1;
-                SetPieceColors();
-            }
-        }
-
-        void rushPiece() {
-            for (int i = 0; i < 22; i++){
-                if (isPosed()){
-                    Score();
-                    generatePiece();
-                    gameOver();
-                    SetPieceColors();
-                    return;
-                }
-                else{
-                    DownPiece();
-                }
-                _grid.SetColors(colors);
-            }
-        }
-
-        void gameOver(){
-            if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT){
+        void PiecePosed()
+        {
+            SetScore(gameManager.Score(colors, speed));
+            piece = gameManager.generatePiece();
+            if (gameManager.isgameOver(piece,colors)){
                 TriggerGameOver();
             }
-            
-        }
-
-        
-        //if gameover true pas de nouvelle piece
-        void Score(){
-            int nbligne = 0;
-            // la fonction supprime les lignes pleines et les lignes au dessus descendent
-            // si plusieur ligne son supprmé on ajoute le nombre de ligne supprimé multiplié par 10 au score
-            for(int i = 0; i < 22; i++){
-                bool isFull = true;
-                for(int j = 0; j < 10; j++){
-                    if (colors[i][j] == SquareColor.TRANSPARENT){
-                        isFull = false;
-                    }
-                }
-                if (isFull){
-                    nbligne++;
-                    lines+=1;
-                    lvl = ((int)lines/10)+1;
-                    speed = 100-(Math.Pow(lvl,1.5f)*1.5f);
-                    for(int k = i; k > 0; k--){
-                        for(int l = 0; l < 10; l++){
-                            colors[k][l] = colors[k-1][l];
-
-                        }
-                    }
-                } 
-            }
-            if(nbligne > 1){
-                    score += (int)(((nbligne*100)+((Math.Pow(nbligne,2)/2)*10))*lvl);
-            }
-            else if(nbligne == 1){
-                score += 100*lvl;
-            }
-            
-            AudioSource breakLineSound = GameObject.Find("BreakLineSound").GetComponent<AudioSource>();
-            breakLineSound.PlayOneShot(breakLineSound.clip);
-            SetScore(score);
-        }
-
-        
-
-        void generatePiece(){
-            if(paque.Count == 0){
-                
-                paque = new List<int>(){1,2,3,4,5,6,7};
-                var count = paque.Count;
-                var last = count - 1;
-                for (var i = 0; i < last; ++i) {
-                    var r = UnityEngine.Random.Range(i, count);
-                    var tmp = paque[i];
-                    paque[i] = paque[r];
-                    paque[r] = tmp;
                     
-                }
-                
-            }
-            piece = new Piece(paque[0]);
-
-            paque.RemoveAt(0);
-
-
+            gameManager.SetPieceColors(piece, colors);
         }
-        generatePiece();
-        
 
-
-        
-        // _grid.Rotate = turnPiece;
-        int actualTickUpdate = 0;
-
-        // TODO : Appelez SetTickFunction en lui passant en argument une fonction ne prenant pas d'argument et renvoyant Void.
-        //        Cette fonction sera exécutée à chaque tick du jeu, c'est à dire, initialement, toutes les secondes.
-        //        Vous pouvez utiliser toutes les méthodes statiques ci-dessous pour mettre à jour l'état du jeu.
+        // SetTickFunction définition
+        piece = gameManager.generatePiece();
+        gameManager.SetPieceColors(piece, colors);
 
         SetTickFunction(() => {
             if (actualTickUpdate >= speed) {
-                if (isPosed()){
-                    Score();
-                    generatePiece();
-                    gameOver();
-                    SetPieceColors();
+                if (gameManager.collider.isPosed(piece,colors)){
+                    PiecePosed();
                 }
                 else{
-                    DownPiece();
+                    gameManager.moveSystem.DownPiece(piece,colors);
                 }
                 actualTickUpdate = 0;
             }
@@ -316,16 +76,16 @@ public class GridDisplay : MonoBehaviour
         //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
         //        et la flèche du bas du clavier.
 
-        SetMoveLeftFunction(leftPiece);
-        SetMoveRightFunction(rightPiece);
-        SetRushFunction(rushPiece);
+        SetMoveLeftFunction(()=>gameManager.moveSystem.leftPiece(piece,colors));
+        SetMoveRightFunction(()=>gameManager.moveSystem.rightPiece(piece,colors));
+        SetRushFunction(()=>gameManager.moveSystem.rushPiece(piece,colors,PiecePosed));
         SetRotateFunction(() => {
-            RemovePieceColors();
+            gameManager.RemovePieceColors(piece, colors);
             piece.turn(colors);
-            SetPieceColors();
+            gameManager.SetPieceColors(piece, colors);
         });
 
-        
+        SetTickTime(0.01f);
 
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!  
         
