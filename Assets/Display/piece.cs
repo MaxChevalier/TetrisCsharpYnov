@@ -74,6 +74,8 @@ public class Piece {
                 cord4 = new List<int> { 1, 5 };
                 color = SquareColor.RED;
                 break;
+
+
         }
     }
 
