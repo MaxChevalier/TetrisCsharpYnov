@@ -28,7 +28,7 @@ class MoveSystem
     public void rushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
     {
         // tant que la pièce peut descendre on la fait descendre
-        while (!collider.isPosed(piece,colors))
+        while (!collider.IsColliding(piece,colors,new List<int>(){1,0}))
         {
             DownPiece(piece,colors);
         }
@@ -40,7 +40,7 @@ class MoveSystem
     {
         // on verifie que la pièce peut bouger vers la gauche
 
-        if (!collider.isCollidingLeft(piece,colors))
+        if (!collider.IsColliding(piece,colors,new List<int>(){0,-1}))
         {
             // on enleve un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
@@ -56,7 +56,7 @@ class MoveSystem
     public void rightPiece(Piece piece, List<List<SquareColor>> colors)
     {
         // on verifie que la pièce peut bouger vers la droite
-        if (!collider.isCollidingRight(piece,colors))
+        if (!collider.IsColliding(piece,colors,new List<int>(){0,1}))
         {
             // on ajoute un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);

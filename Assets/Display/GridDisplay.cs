@@ -66,7 +66,7 @@ public class GridDisplay : MonoBehaviour
         //action a chaque tick
         SetTickFunction(() => {
             if (actualTickUpdate >= gameStat.speed) { // dessand la piece si le temps est écoulé
-                if (gameManager.collider.isPosed(piece,colors)){
+                if (gameManager.collider.IsColliding(piece,colors,new List<int>{1,0})){
                     PiecePosed();
                 }
                 else{

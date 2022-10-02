@@ -103,46 +103,37 @@ class GameManager
     //fonction pour remettre les couleur a transparent
     public void RemovePieceColors(Piece piece, List<List<SquareColor>> colors)
     {
-        if(colors[piece.cord1[0]][piece.cord1[1]] == piece.color){
-            colors[piece.cord1[0]][piece.cord1[1]] = SquareColor.TRANSPARENT;
+        foreach (List<int> cord in new List<List<int>> { piece.cord1, piece.cord2, piece.cord3, piece.cord4 })
+        {
+            if (colors[cord[0]][cord[1]] == piece.color)
+            {
+                colors[cord[0]][cord[1]] = SquareColor.TRANSPARENT;
+            }
         }
-        if(colors[piece.cord2[0]][piece.cord2[1]] == piece.color){
-            colors[piece.cord2[0]][piece.cord2[1]] = SquareColor.TRANSPARENT;
-        }
-        if(colors[piece.cord3[0]][piece.cord3[1]] == piece.color){
-            colors[piece.cord3[0]][piece.cord3[1]] = SquareColor.TRANSPARENT;
-        }
-        if(colors[piece.cord4[0]][piece.cord4[1]] == piece.color){
-            colors[piece.cord4[0]][piece.cord4[1]] = SquareColor.TRANSPARENT;
-        }
-        
     }
 
     //fonction pour verifié si la partie est fini
     public bool isgameOver(Piece piece, List<List<SquareColor>> colors)
     {
-        if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT)
+        foreach (List<int> cord in new List<List<int>> { piece.cord1, piece.cord2, piece.cord3, piece.cord4 })
         {
-            return true;
+            if (colors[cord[0]][cord[1]] != SquareColor.TRANSPARENT)
+            {
+                return true;
+            }
         }
         return false;
-
     }
 
     //fonciton pour colorier la piece
     public void SetPieceColors(Piece piece, List<List<SquareColor>> colors)
     {
-        if(colors[piece.cord1[0]][piece.cord1[1]] == SquareColor.TRANSPARENT || colors[piece.cord1[0]][piece.cord1[1]] == SquareColor.PREVIEW){
-            colors[piece.cord1[0]][piece.cord1[1]] = piece.color;
-        }
-        if(colors[piece.cord2[0]][piece.cord2[1]] == SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] == SquareColor.PREVIEW){
-            colors[piece.cord2[0]][piece.cord2[1]] = piece.color;
-        }
-        if(colors[piece.cord3[0]][piece.cord3[1]] == SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] == SquareColor.PREVIEW){
-            colors[piece.cord3[0]][piece.cord3[1]] = piece.color;
-        }
-        if(colors[piece.cord4[0]][piece.cord4[1]] == SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] == SquareColor.PREVIEW){
-            colors[piece.cord4[0]][piece.cord4[1]] = piece.color;
+        foreach (List<int> cord in new List<List<int>> { piece.cord1, piece.cord2, piece.cord3, piece.cord4 })
+        {
+            if (colors[cord[0]][cord[1]] == SquareColor.TRANSPARENT || colors[cord[0]][cord[1]] == SquareColor.PREVIEW)
+            {
+                colors[cord[0]][cord[1]] = piece.color;
+            }
         }
     }
 }
