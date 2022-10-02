@@ -2,14 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+// classe pour les pièces
 public class Piece {
+    // coordonnées des pixel de la pièce
     public List<int> cord1 = new List<int>();
     public List<int> cord2 = new List<int>();
     public List<int> cord3 = new List<int>();
     public List<int> cord4 = new List<int>();
+    // couleur de la pièce
     public SquareColor color;
 
 
+    // possibilité formes de pièces
     public Piece(int nbtPiece){
         switch (nbtPiece){
             case 1:
@@ -79,11 +83,13 @@ public class Piece {
         }
     }
 
+// fonction pour tourner la pièce
     public void turn(List<List<SquareColor>> colors, List<int> modif){
         int minCordY = 22;
         int maxCordY = 0;
         int minCordX = 10;
         int maxCordX = 0;
+        // on cherche les coordonnées min et max de la pièce
         foreach (List<int> cord in new List<List<int>> { cord1, cord2, cord3, cord4 }) {
             if (cord[0] < minCordY) {
                 minCordY = cord[0];
@@ -101,6 +107,7 @@ public class Piece {
         float midCordY = (minCordY + maxCordY) / 2;
         float midCordX = (minCordX + maxCordX) / 2;
         List<List<int>> newCords = new List<List<int>>();
+        // on tourne les coordonnées de la pièce
         foreach (List<int> cord in new List<List<int>> { cord1, cord2, cord3, cord4 }) {
             int newCordY = (int)(midCordY + (cord[1] - midCordX)) + modif[0];
             int newCordX = (int)(midCordX - (cord[0] - midCordY)) + modif[1];
@@ -124,6 +131,7 @@ public class Piece {
             }
             newCords.Add(new List<int> { newCordY, newCordX });
         }
+        // on applique les nouvelles coordonnées
         cord1 = newCords[0];
         cord2 = newCords[1];
         cord3 = newCords[2];

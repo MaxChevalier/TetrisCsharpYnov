@@ -2,26 +2,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+// classe pour le mouvement des pièces
 class MoveSystem
 {
-
-    private Piece PreviewPiece = new Piece(new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},SquareColor.TRANSPARENT);
+    //private Piece PreviewPiece = new Piece(new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},SquareColor.TRANSPARENT);
+    
+    //recuperation des collision et du gameManager
     private Collider collider;
     private GameManager gameManager;
 
+    //constructeur pour generer une instance de collider
     public MoveSystem()
     {
         collider = new Collider();
     }
 
+    //constructeur
     public MoveSystem(Collider collider, GameManager gameManager)
     {
         this.collider = collider;
         this.gameManager = gameManager;
     }
 
+    // fonction pour faire descendre la pièce en bas en un mouvement
     public void rushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
     {
+        // tant que la pièce peut descendre on la fait descendre
         while (!collider.isPosed(piece,colors))
         {
             DownPiece(piece,colors);
@@ -29,10 +35,14 @@ class MoveSystem
         PiecePosed();
     }
 
+    // fonction pour faire bouger la pièce vers la gauche
     public void leftPiece(Piece piece, List<List<SquareColor>> colors)
     {
+        // on verifie que la pièce peut bouger vers la gauche
+
         if (!collider.isCollidingLeft(piece,colors))
         {
+            // on enleve un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
             piece.cord1[1] = piece.cord1[1] - 1;
             piece.cord2[1] = piece.cord2[1] - 1;
@@ -42,10 +52,13 @@ class MoveSystem
         }
     }
 
+    // fonction pour faire bouger la pièce vers la droite
     public void rightPiece(Piece piece, List<List<SquareColor>> colors)
     {
+        // on verifie que la pièce peut bouger vers la droite
         if (!collider.isCollidingRight(piece,colors))
         {
+            // on ajoute un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
             piece.cord1[1] = piece.cord1[1] + 1;
             piece.cord2[1] = piece.cord2[1] + 1;
@@ -55,9 +68,10 @@ class MoveSystem
         }
     }
 
+    // fonction pour faire bouger la pièce vers le bas
     public void DownPiece(Piece piece, List<List<SquareColor>> colors)
     {
-        
+        //on ajoute un pixel de coordonnée y a chaque pixel de la pièce 
         gameManager.RemovePieceColors(piece,colors);
         piece.cord1[0] = piece.cord1[0] + 1;
         piece.cord2[0] = piece.cord2[0] + 1;
