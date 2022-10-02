@@ -24,6 +24,7 @@ public class GridDisplay : MonoBehaviour
         int actualTickUpdate = 0;
 
         GameManager gameManager = new GameManager();
+        GameStat gameStat = new GameStat();
 
         // generate grid of colors
         
@@ -41,8 +42,10 @@ public class GridDisplay : MonoBehaviour
         // action if Piece is posed
 
         void PiecePosed()
-        {
-            SetScore(gameManager.Score(colors, speed));
+        {   
+            gameStat = gameManager.BreakLine(colors, gameStat.speed);
+            SetScore(gameStat.score);
+            SetLevel(gameStat.level);
             piece = gameManager.generatePiece();
             if (gameManager.isgameOver(piece,colors)){
                 TriggerGameOver();
@@ -56,7 +59,7 @@ public class GridDisplay : MonoBehaviour
         gameManager.SetPieceColors(piece, colors);
 
         SetTickFunction(() => {
-            if (actualTickUpdate >= speed) {
+            if (actualTickUpdate >= gameStat.speed) {
                 if (gameManager.collider.isPosed(piece,colors)){
                     PiecePosed();
                 }
@@ -87,7 +90,7 @@ public class GridDisplay : MonoBehaviour
         SetRushFunction(()=>gameManager.moveSystem.rushPiece(piece,colors,PiecePosed));
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
-            piece.turn(colors);
+            piece.turn(colors,new List<int> {0,0});
             gameManager.SetPieceColors(piece, colors);
             // gameManager.moveSystem.Preview(piece, colors);
         });
@@ -156,6 +159,12 @@ public class GridDisplay : MonoBehaviour
     public static void SetScore(int score){
         _grid.SetScore(score);
     }
+
+    // Modifie visuellement le niveau de l'utilisateur en bas à droite.
+    public static void SetLevel(int level){
+        _grid.SetLevel(level);
+    }
+
     // Déclenche visuellement le GameOver et arrête le jeu.
     public static void TriggerGameOver(){
         _grid.TriggerGameOver();

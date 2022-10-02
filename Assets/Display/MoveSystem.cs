@@ -22,7 +22,6 @@ class MoveSystem
 
     public void rushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
     {
-        gameManager.RemovePieceColors(piece,colors);
         while (!collider.isPosed(piece,colors))
         {
             DownPiece(piece,colors);
