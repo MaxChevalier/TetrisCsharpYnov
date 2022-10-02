@@ -25,10 +25,10 @@ class MoveSystem
     }
 
     // fonction pour faire descendre la pièce en bas en un mouvement
-    public void rushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
+    public void RushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
     {
         // tant que la pièce peut descendre on la fait descendre
-        while (!collider.isPosed(piece,colors))
+        while (!collider.IsPosed(piece,colors))
         {
             DownPiece(piece,colors);
         }
@@ -36,11 +36,11 @@ class MoveSystem
     }
 
     // fonction pour faire bouger la pièce vers la gauche
-    public void leftPiece(Piece piece, List<List<SquareColor>> colors)
+    public void LeftPiece(Piece piece, List<List<SquareColor>> colors)
     {
         // on verifie que la pièce peut bouger vers la gauche
 
-        if (!collider.isCollidingLeft(piece,colors))
+        if (!collider.IsCollidingLeft(piece,colors))
         {
             // on enleve un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
@@ -53,10 +53,10 @@ class MoveSystem
     }
 
     // fonction pour faire bouger la pièce vers la droite
-    public void rightPiece(Piece piece, List<List<SquareColor>> colors)
+    public void RightPiece(Piece piece, List<List<SquareColor>> colors)
     {
         // on verifie que la pièce peut bouger vers la droite
-        if (!collider.isCollidingRight(piece,colors))
+        if (!collider.IsCollidingRight(piece,colors))
         {
             // on ajoute un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);

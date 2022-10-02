@@ -46,8 +46,8 @@ public class GridDisplay : MonoBehaviour
             gameStat = gameManager.BreakLine(colors, gameStat.speed);
             SetScore(gameStat.score);
             SetLevel(gameStat.level);
-            piece = gameManager.generatePiece();
-            if (gameManager.isgameOver(piece,colors)){
+            piece = gameManager.GeneratePiece();
+            if (gameManager.IsgameOver(piece,colors)){
                 TriggerGameOver();
             }
                     
@@ -55,12 +55,12 @@ public class GridDisplay : MonoBehaviour
         }
 
         // SetTickFunction définition
-        piece = gameManager.generatePiece();
+        piece = gameManager.GeneratePiece();
         gameManager.SetPieceColors(piece, colors);
 
         SetTickFunction(() => {
             if (actualTickUpdate >= gameStat.speed) {
-                if (gameManager.collider.isPosed(piece,colors)){
+                if (gameManager.collider.IsPosed(piece,colors)){
                     PiecePosed();
                 }
                 else{
@@ -80,17 +80,17 @@ public class GridDisplay : MonoBehaviour
         //        et la flèche du bas du clavier.
 
         SetMoveLeftFunction(()=>{
-            gameManager.moveSystem.leftPiece(piece,colors);
+            gameManager.moveSystem.LeftPiece(piece,colors);
             // gameManager.moveSystem.Preview(piece, colors);
             });
         SetMoveRightFunction(()=>{
-            gameManager.moveSystem.rightPiece(piece,colors);
+            gameManager.moveSystem.RightPiece(piece,colors);
             // gameManager.moveSystem.Preview(piece, colors);
             });
-        SetRushFunction(()=>gameManager.moveSystem.rushPiece(piece,colors,PiecePosed));
+        SetRushFunction(()=>gameManager.moveSystem.RushPiece(piece,colors,PiecePosed));
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
-            piece.turn(colors,new List<int> {0,0});
+            piece.Turn(colors,new List<int> {0,0});
             gameManager.SetPieceColors(piece, colors);
             // gameManager.moveSystem.Preview(piece, colors);
         });
