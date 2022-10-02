@@ -7,20 +7,20 @@ class Collider{
     public Collider(){}
     
     // test si la piece est posé
-    public bool isPosed(Piece piece,List<List<SquareColor>> colors){
+    public bool IsPosed(Piece piece,List<List<SquareColor>> colors){
             if (piece.cord1[0]==21||piece.cord2[0]==21||piece.cord3[0]==21||piece.cord4[0]==21){
                 return true;
             }else{
-                if (isColliding(piece.cord1, piece, "down",colors)){
+                if (IsColliding(piece.cord1, piece, "down",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord2, piece, "down",colors)){
+                if (IsColliding(piece.cord2, piece, "down",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord3, piece, "down",colors)){
+                if (IsColliding(piece.cord3, piece, "down",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord4, piece, "down",colors)){
+                if (IsColliding(piece.cord4, piece, "down",colors)){
                     return true;
                 }
             }
@@ -29,20 +29,20 @@ class Collider{
         }
 
         //test si la piece peut aller a gauche
-        public bool isCollidingLeft(Piece piece, List<List<SquareColor>> colors){
+        public bool IsCollidingLeft(Piece piece, List<List<SquareColor>> colors){
             if (piece.cord1[1]==0||piece.cord2[1]==0||piece.cord3[1]==0||piece.cord4[1]==0){
                 return true;
             }else{
-                if (isColliding(piece.cord1, piece, "left",colors)){
+                if (IsColliding(piece.cord1, piece, "left",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord2, piece, "left",colors)){
+                if (IsColliding(piece.cord2, piece, "left",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord3, piece, "left",colors)){
+                if (IsColliding(piece.cord3, piece, "left",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord4, piece, "left",colors)){
+                if (IsColliding(piece.cord4, piece, "left",colors)){
                     return true;
                 }
             }
@@ -51,20 +51,20 @@ class Collider{
         }
         
         // test si la piece peut aller a droite
-        public bool isCollidingRight(Piece piece, List<List<SquareColor>> colors){
+        public bool IsCollidingRight(Piece piece, List<List<SquareColor>> colors){
             if (piece.cord1[1]==9||piece.cord2[1]==9||piece.cord3[1]==9||piece.cord4[1]==9){
                 return true;
             }else{
-                if (isColliding(piece.cord1, piece, "right",colors)){
+                if (IsColliding(piece.cord1, piece, "right",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord2, piece, "right",colors)){
+                if (IsColliding(piece.cord2, piece, "right",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord3, piece, "right",colors)){
+                if (IsColliding(piece.cord3, piece, "right",colors)){
                     return true;
                 }
-                if (isColliding(piece.cord4, piece, "right",colors)){
+                if (IsColliding(piece.cord4, piece, "right",colors)){
                     return true;
                 }
             }
@@ -74,7 +74,7 @@ class Collider{
 
         // test si le carré peut faire le movement demander
 
-        public bool isColliding(List<int> cord, Piece piece, string direction, List<List<SquareColor>> colors){
+        public bool IsColliding(List<int> cord, Piece piece, string direction, List<List<SquareColor>> colors){
            int indexOfCord = 0;
            int numOfMoves= 0;
            int indexOfCordNoMove= 0;

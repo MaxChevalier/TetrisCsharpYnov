@@ -96,7 +96,7 @@ public class Piece {
 
     //fonction pour tourner la pièce
 
-    public void turn(List<List<SquareColor>> colors, List<int> modif)
+    public void Turn(List<List<SquareColor>> colors, List<int> modif)
     {
         int minCordY = 22;
         int maxCordY = 0;
@@ -127,26 +127,19 @@ public class Piece {
         foreach (List<int> cord in new List<List<int>> { cord1, cord2, cord3, cord4 }) {
             int newCordY = (int)(midCordY + (cord[1] - midCordX)) + modif[0];
             int newCordX = (int)(midCordX - (cord[0] - midCordY)) + modif[1];
-            if (newCordY < 0 || newCordY > 21 || newCordX < 0 || newCordX > 9 || colors[newCordY][newCordX] != SquareColor.TRANSPARENT)
-            {
-                if (modif[1] == 0 && modif[0] == 0)
-                {
-                    turn(colors, new List<int> { 0, 1 });
+            if (newCordY < 0 || newCordY > 21 || newCordX < 0 || newCordX > 9 || colors[newCordY][newCordX] != SquareColor.TRANSPARENT) {
+               if (modif[1] == 0 && modif[0] == 0) {
+                    Turn(colors, new List<int> { 0, 1 });
                     return;
                 }
-                else if (modif[1] == 1)
-                {
-                    turn(colors, new List<int> { 0, -1 });
+                else if (modif[1] == 1) {
+                    Turn(colors, new List<int> { 0, -1 });
                     return;
-                }
-                else if (modif[1] == -1)
-                {
-                    turn(colors, new List<int> { -1, 0 });
+                }else if (modif[1] == -1) {
+                    Turn(colors, new List<int> { -1, 0 });
                     return;
-                }
-                else if (modif[0] == -1)
-                {
-                    turn(colors, new List<int> { 1, 0 });
+                }else if (modif[0] == -1) {
+                    Turn(colors, new List<int> { 1, 0 });
                     return;
                 }
                 else

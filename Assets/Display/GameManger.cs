@@ -27,7 +27,7 @@ class GameManager
     }
 
     //fonction pour generer une nouvelle pièce
-    public Piece generatePiece()
+    public Piece GeneratePiece()
     {
         if (paque.Count == 0)
         {
@@ -119,7 +119,7 @@ class GameManager
     }
 
     //fonction pour verifié si la partie est fini
-    public bool isgameOver(Piece piece, List<List<SquareColor>> colors)
+    public bool IsgameOver(Piece piece, List<List<SquareColor>> colors)
     {
         if (colors[piece.cord1[0]][piece.cord1[1]] != SquareColor.TRANSPARENT || colors[piece.cord2[0]][piece.cord2[1]] != SquareColor.TRANSPARENT || colors[piece.cord3[0]][piece.cord3[1]] != SquareColor.TRANSPARENT || colors[piece.cord4[0]][piece.cord4[1]] != SquareColor.TRANSPARENT)
         {

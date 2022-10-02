@@ -50,23 +50,23 @@ public class GridDisplay : MonoBehaviour
             gameStat = gameManager.BreakLine(colors, gameStat.speed); //destruction de la grille
             SetScore(gameStat.score);
             SetLevel(gameStat.level);
-            piece = gameManager.generatePiece();
-            if (gameManager.isgameOver(piece,colors)){ // si la partie est fini
+            piece = gameManager.GeneratePiece();
+            if (gameManager.IsgameOver(piece,colors)){
                 TriggerGameOver();
             }
                     
             gameManager.SetPieceColors(piece, colors);
         }
 
-        // génére une piece de depart
-        piece = gameManager.generatePiece();
+        // SetTickFunction définition
+        piece = gameManager.GeneratePiece();
         gameManager.SetPieceColors(piece, colors);
 
 
         //action a chaque tick
         SetTickFunction(() => {
-            if (actualTickUpdate >= gameStat.speed) { // dessand la piece si le temps est écoulé
-                if (gameManager.collider.isPosed(piece,colors)){
+            if (actualTickUpdate >= gameStat.speed) {
+                if (gameManager.collider.IsPosed(piece,colors)){
                     PiecePosed();
                 }
                 else{
@@ -84,23 +84,19 @@ public class GridDisplay : MonoBehaviour
         // lien vert la fonction pour déplacer la piece a gauche
 
         SetMoveLeftFunction(()=>{
-            gameManager.moveSystem.leftPiece(piece,colors);
+            gameManager.moveSystem.LeftPiece(piece,colors);
             // gameManager.moveSystem.Preview(piece, colors);
             });
 
         // lien vert la fonction pour déplacer la piece a droite
         SetMoveRightFunction(()=>{
-            gameManager.moveSystem.rightPiece(piece,colors);
+            gameManager.moveSystem.RightPiece(piece,colors);
             // gameManager.moveSystem.Preview(piece, colors);
             });
-
-        // lien vert la fonction pour placer la piece en bas
-        SetRushFunction(()=>gameManager.moveSystem.rushPiece(piece,colors,PiecePosed));
-
-        // lien vert la fonction pour faire tourner la piece
+        SetRushFunction(()=>gameManager.moveSystem.RushPiece(piece,colors,PiecePosed));
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
-            piece.turn(colors,new List<int> {0,0});
+            piece.Turn(colors,new List<int> {0,0});
             gameManager.SetPieceColors(piece, colors);
             // gameManager.moveSystem.Preview(piece, colors);
         });
