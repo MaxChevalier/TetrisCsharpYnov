@@ -79,6 +79,14 @@ public class Piece {
         }
     }
 
+    public Piece(List<int> _cord1, List<int> _cord2, List<int> _cord3, List<int> _cord4, SquareColor _color){
+        cord1 = _cord1;
+        cord2 = _cord2;
+        cord3 = _cord3;
+        cord4 = _cord4;
+        color = _color;
+    }
+
     public void turn(List<List<SquareColor>> colors){
         int minCordY = 22;
         int maxCordY = 0;

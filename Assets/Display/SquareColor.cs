@@ -7,6 +7,7 @@ public enum SquareColor {
     GREEN,
     PURPLE,
     RED,
+    PREVIEW,
     TRANSPARENT,
 }
 
