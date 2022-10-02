@@ -44,10 +44,10 @@ class MoveSystem
         {
             // on enleve un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
-            piece.cord1[1] = piece.cord1[1] - 1;
-            piece.cord2[1] = piece.cord2[1] - 1;
-            piece.cord3[1] = piece.cord3[1] - 1;
-            piece.cord4[1] = piece.cord4[1] - 1;
+            foreach (List<int> cord in new List<int>[] {piece.cord1, piece.cord2, piece.cord3, piece.cord4})
+            {
+                cord[1]--;
+            }
             gameManager.SetPieceColors(piece,colors);
         }
     }
@@ -60,10 +60,10 @@ class MoveSystem
         {
             // on ajoute un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
-            piece.cord1[1] = piece.cord1[1] + 1;
-            piece.cord2[1] = piece.cord2[1] + 1;
-            piece.cord3[1] = piece.cord3[1] + 1;
-            piece.cord4[1] = piece.cord4[1] + 1;
+            foreach (List<int> cord in new List<int>[] {piece.cord1, piece.cord2, piece.cord3, piece.cord4})
+            {
+                cord[1]++;
+            }
             gameManager.SetPieceColors(piece,colors);
         }
     }
@@ -73,47 +73,61 @@ class MoveSystem
     {
         //on ajoute un pixel de coordonnée y a chaque pixel de la pièce 
         gameManager.RemovePieceColors(piece,colors);
-        piece.cord1[0] = piece.cord1[0] + 1;
-        piece.cord2[0] = piece.cord2[0] + 1;
-        piece.cord3[0] = piece.cord3[0] + 1;
-        piece.cord4[0] = piece.cord4[0] + 1;
+        foreach (List<int> cord in new List<int>[] {piece.cord1, piece.cord2, piece.cord3, piece.cord4})
+        {
+            cord[0]++;
+        }
         gameManager.SetPieceColors(piece,colors);
     }
+
+    // recherche for a preview function
+    
     //preview est une fonction qui permet de voir ou la piece va tomber
     // public void Preview(Piece piece, List<List<SquareColor>> colors)
     // {
     //     gameManager.RemovePieceColors(PreviewPiece,colors);
     //     PreviewPiece = new Piece(piece.cord1,piece.cord2,piece.cord3,piece.cord4,SquareColor.PREVIEW);
-    //     // previewListeCord = new List<List<int>>(){PreviewPiece.cord1,PreviewPiece.cord2,PreviewPiece.cord3,PreviewPiece.cord4};
-    //     // pieceListeCord = new List<List<int>>(){piece.cord1,piece.cord2,piece.cord3,piece.cord4};
+    //     List<List<int>> previewListeCord = new List<List<int>>(){PreviewPiece.cord1,PreviewPiece.cord2,PreviewPiece.cord3,PreviewPiece.cord4};
+    //     List<List<int>> pieceListeCord = new List<List<int>>(){piece.cord1,piece.cord2,piece.cord3,piece.cord4};
 
-    //     while ()
-    //     {        
-    //         UnityEngine.Debug.Log("test");
+    //     bool isNextPrewiewPosed(){
+    //         foreach (List<int> cord in previewListeCord)
+    //         {
+    //             bool isOnPiece = false;
+    //             foreach (List<int> cord2 in pieceListeCord)
+    //             {
+    //                 if (cord[0]+1 == cord2[0] && cord[1] == cord2[1])
+    //                 {
+    //                     isOnPiece = true;
+    //                 }
+    //             }
+    //             if (!isOnPiece && colors[cord[0]+1][cord[1]] != SquareColor.TRANSPARENT)
+    //             {
+    //                 return true;
+    //             }
+    //         }
+    //         return false;
+            
+    //     }
+
+    //     while (!isNextPrewiewPosed())
+    //     {
     //         gameManager.RemovePieceColors(PreviewPiece,colors);
     //         PreviewPiece.cord1[0] = PreviewPiece.cord1[0] + 1;
     //         PreviewPiece.cord2[0] = PreviewPiece.cord2[0] + 1;
     //         PreviewPiece.cord3[0] = PreviewPiece.cord3[0] + 1;
     //         PreviewPiece.cord4[0] = PreviewPiece.cord4[0] + 1;
-    //         if(colors[PreviewPiece.cord1[0]][PreviewPiece.cord1[1]] == SquareColor.TRANSPARENT && !(PreviewPiece.cord1[0] == piece.cord1[0] && PreviewPiece.cord1[1] == piece.cord1[1]) && !(PreviewPiece.cord1[0] == piece.cord2[0] && PreviewPiece.cord1[1] == piece.cord2[1]) && !(PreviewPiece.cord1[0] == piece.cord3[0] && PreviewPiece.cord1[1] == piece.cord3[1]) && !(PreviewPiece.cord1[0] == piece.cord4[0] && PreviewPiece.cord1[1] == piece.cord4[1]))
+            
+    //         foreach (List<int> cord in previewListeCord)
     //         {
-    //             UnityEngine.Debug.Log("1");
-    //             colors[PreviewPiece.cord1[0]][PreviewPiece.cord1[1]] = SquareColor.PREVIEW;
-    //         }
-    //         if(colors[PreviewPiece.cord2[0]][PreviewPiece.cord2[1]] == SquareColor.TRANSPARENT && !(PreviewPiece.cord2[0] == piece.cord1[0] && PreviewPiece.cord2[1] == piece.cord1[1]) && !(PreviewPiece.cord2[0] == piece.cord2[0] && PreviewPiece.cord2[1] == piece.cord2[1]) && !(PreviewPiece.cord2[0] == piece.cord3[0] && PreviewPiece.cord2[1] == piece.cord3[1]) && !(PreviewPiece.cord2[0] == piece.cord4[0] && PreviewPiece.cord2[1] == piece.cord4[1]))
-    //         {
-    //             UnityEngine.Debug.Log("2");
-    //             colors[PreviewPiece.cord2[0]][PreviewPiece.cord2[1]] = SquareColor.PREVIEW;
-    //         }
-    //         if(colors[PreviewPiece.cord3[0]][PreviewPiece.cord3[1]] == SquareColor.TRANSPARENT && !(PreviewPiece.cord3[0] == piece.cord1[0] && PreviewPiece.cord3[1] == piece.cord1[1]) && !(PreviewPiece.cord3[0] == piece.cord2[0] && PreviewPiece.cord3[1] == piece.cord2[1]) && !(PreviewPiece.cord3[0] == piece.cord3[0] && PreviewPiece.cord3[1] == piece.cord3[1]) && !(PreviewPiece.cord3[0] == piece.cord4[0] && PreviewPiece.cord3[1] == piece.cord4[1]))
-    //         {
-    //             UnityEngine.Debug.Log("3");
-    //             colors[PreviewPiece.cord3[0]][PreviewPiece.cord3[1]] = SquareColor.PREVIEW;
-    //         }
-    //         if(colors[PreviewPiece.cord4[0]][PreviewPiece.cord4[1]] == SquareColor.TRANSPARENT && !(PreviewPiece.cord4[0] == piece.cord1[0] && PreviewPiece.cord4[1] == piece.cord1[1]) && !(PreviewPiece.cord4[0] == piece.cord2[0] && PreviewPiece.cord4[1] == piece.cord2[1]) && !(PreviewPiece.cord4[0] == piece.cord3[0] && PreviewPiece.cord4[1] == piece.cord3[1]) && !(PreviewPiece.cord4[0] == piece.cord4[0] && PreviewPiece.cord4[1] == piece.cord4[1]))
-    //         {
-    //             UnityEngine.Debug.Log("4");
-    //             colors[PreviewPiece.cord4[0]][PreviewPiece.cord4[1]] = SquareColor.PREVIEW;
+    //             cord[0] = cord[0] + 1;
+    //             foreach (List<int> cord2 in pieceListeCord)
+    //             {
+    //                 if (cord[0] == cord2[0] && cord[1] == cord2[1])
+    //                 {
+    //                     colors[cord[0]][cord[1]] = SquareColor.PREVIEW;
+    //                 }
+    //             }
     //         }
     //     }
     // }
