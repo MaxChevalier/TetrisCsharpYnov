@@ -39,6 +39,7 @@
      <Compile Include="Assets\Display\Collider.cs" />
      <Compile Include="Assets\Internal\_GridDisplay.cs" />
      <Compile Include="Assets\Display\GameManger.cs" />
+     <Compile Include="Assets\Display\GameStat.cs" />
      <Compile Include="Assets\Display\SquareColor.cs" />
      <Compile Include="Assets\Display\MoveSystem.cs" />
      <Compile Include="Assets\Internal\_Square.cs" />

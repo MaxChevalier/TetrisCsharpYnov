@@ -44,7 +44,7 @@ class GameManager
         return new Piece(nbtPiece);
     }
 
-    public int Score(List<List<SquareColor>> colors, double speed)
+    public GameStat BreakLine(List<List<SquareColor>> colors, double speed)
     {
         int nbligne = 0;
         // la fonction supprime les lignes pleines et les lignes au dessus descendent
@@ -64,7 +64,7 @@ class GameManager
                 nbligne++;
                 lines += 1;
                 lvl = ((int)lines / 10) + 1;
-                speed = 100 - (Math.Pow(lvl, 1.5f) * 1.5f);
+                speed = 100 - (Math.Pow(lvl, 1.2f) * 2.5f);
                 for (int k = i; k > 0; k--)
                 {
                     for (int l = 0; l < 10; l++)
@@ -89,7 +89,7 @@ class GameManager
         {
             score += 100 * lvl;
         }
-        return score;
+        return new GameStat(score, lvl, speed);
     }
 
     public void RemovePieceColors(Piece piece, List<List<SquareColor>> colors)

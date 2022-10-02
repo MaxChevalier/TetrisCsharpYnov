@@ -78,7 +78,7 @@ public class Piece {
         }
     }
 
-    public void turn(List<List<SquareColor>> colors){
+    public void turn(List<List<SquareColor>> colors, List<int> modif){
         int minCordY = 22;
         int maxCordY = 0;
         int minCordX = 10;
@@ -97,14 +97,29 @@ public class Piece {
                 maxCordX = cord[1];
             }
         }
-        int midCordY = (minCordY + maxCordY) / 2;
-        int midCordX = (minCordX + maxCordX) / 2;
+        float midCordY = (minCordY + maxCordY) / 2;
+        float midCordX = (minCordX + maxCordX) / 2;
         List<List<int>> newCords = new List<List<int>>();
         foreach (List<int> cord in new List<List<int>> { cord1, cord2, cord3, cord4 }) {
-            int newCordY = midCordY + (cord[1] - midCordX);
-            int newCordX = midCordX - (cord[0] - midCordY);
+            int newCordY = (int)(midCordY + (cord[1] - midCordX)) + modif[0];
+            int newCordX = (int)(midCordX - (cord[0] - midCordY)) + modif[1];
             if (newCordY < 0 || newCordY > 21 || newCordX < 0 || newCordX > 9 || colors[newCordY][newCordX] != SquareColor.TRANSPARENT) {
-                return;
+               if (modif[1] == 0 && modif[0] == 0) {
+                    turn(colors, new List<int> { 0, 1 });
+                    return;
+                }
+                else if (modif[1] == 1) {
+                    turn(colors, new List<int> { 0, -1 });
+                    return;
+                }else if (modif[1] == -1) {
+                    turn(colors, new List<int> { -1, 0 });
+                    return;
+                }else if (modif[0] == -1) {
+                    turn(colors, new List<int> { 1, 0 });
+                    return;
+                }else{
+                    return;
+                }
             }
             newCords.Add(new List<int> { newCordY, newCordX });
         }

@@ -30,6 +30,7 @@ public class _GridDisplay : MonoBehaviour
 
     public GameObject gameOver = null;
     public TextMeshProUGUI score = null;
+    public TextMeshProUGUI level = null;
 
     private Coroutine tickCoroutine = null;
 
@@ -67,6 +68,12 @@ public class _GridDisplay : MonoBehaviour
     public void SetScore(int score){
         if(this.score){
             this.score.SetText($"score : {score}");
+        }
+    }
+
+    public void SetLevel(int level){
+        if(this.level){
+            this.level.SetText($"level : {level}");
         }
     }
 
