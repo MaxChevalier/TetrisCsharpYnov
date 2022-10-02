@@ -78,18 +78,18 @@ public class GridDisplay : MonoBehaviour
 
         SetMoveLeftFunction(()=>{
             gameManager.moveSystem.leftPiece(piece,colors);
-            gameManager.moveSystem.Preview(piece, colors);
+            // gameManager.moveSystem.Preview(piece, colors);
             });
         SetMoveRightFunction(()=>{
             gameManager.moveSystem.rightPiece(piece,colors);
-            gameManager.moveSystem.Preview(piece, colors);
+            // gameManager.moveSystem.Preview(piece, colors);
             });
         SetRushFunction(()=>gameManager.moveSystem.rushPiece(piece,colors,PiecePosed));
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
             piece.turn(colors);
             gameManager.SetPieceColors(piece, colors);
-            gameManager.moveSystem.Preview(piece, colors);
+            // gameManager.moveSystem.Preview(piece, colors);
         });
 
         SetTickTime(0.01f);
