@@ -34,10 +34,10 @@ class MoveSystem
         if (!collider.isCollidingLeft(piece,colors))
         {
             gameManager.RemovePieceColors(piece,colors);
-            piece.cord1[1] = piece.cord1[1] - 1;
-            piece.cord2[1] = piece.cord2[1] - 1;
-            piece.cord3[1] = piece.cord3[1] - 1;
-            piece.cord4[1] = piece.cord4[1] - 1;
+            foreach (List<int> cord in new List<int>[] {piece.cord1, piece.cord2, piece.cord3, piece.cord4})
+            {
+                cord[1]--;
+            }
             gameManager.SetPieceColors(piece,colors);
         }
     }
@@ -47,10 +47,10 @@ class MoveSystem
         if (!collider.isCollidingRight(piece,colors))
         {
             gameManager.RemovePieceColors(piece,colors);
-            piece.cord1[1] = piece.cord1[1] + 1;
-            piece.cord2[1] = piece.cord2[1] + 1;
-            piece.cord3[1] = piece.cord3[1] + 1;
-            piece.cord4[1] = piece.cord4[1] + 1;
+            foreach (List<int> cord in new List<int>[] {piece.cord1, piece.cord2, piece.cord3, piece.cord4})
+            {
+                cord[1]++;
+            }
             gameManager.SetPieceColors(piece,colors);
         }
     }
@@ -59,10 +59,10 @@ class MoveSystem
     {
         
         gameManager.RemovePieceColors(piece,colors);
-        piece.cord1[0] = piece.cord1[0] + 1;
-        piece.cord2[0] = piece.cord2[0] + 1;
-        piece.cord3[0] = piece.cord3[0] + 1;
-        piece.cord4[0] = piece.cord4[0] + 1;
+        foreach (List<int> cord in new List<int>[] {piece.cord1, piece.cord2, piece.cord3, piece.cord4})
+        {
+            cord[0]++;
+        }
         gameManager.SetPieceColors(piece,colors);
     }
 
