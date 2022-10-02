@@ -17,16 +17,20 @@ public class GridDisplay : MonoBehaviour
 
     // Cette fonction se lance au lancement du jeu, avant le premier affichage.
     public static void Initialize(){
+
+        // créé les varibles nesséssaire au fonctionnement du jeu
+
         Piece piece = new Piece(1);
         piece.color = SquareColor.TRANSPARENT;
-        double speed = 100;
         List<int> paque = new List<int>(){};
         int actualTickUpdate = 0;
 
         GameManager gameManager = new GameManager();
+
+        // possede les stats du jeu (score, niveau, vitesses)
         GameStat gameStat = new GameStat();
 
-        // generate grid of colors
+        // création de la grille
         
         List<List<SquareColor>> colors = new List<List<SquareColor>>();
         for (int j = 0; j < 22; j++)
@@ -39,27 +43,29 @@ public class GridDisplay : MonoBehaviour
             colors.Add(row);
         }
         
-        // action if Piece is posed
+        // action si la piece est posé
 
         void PiecePosed()
         {   
-            gameStat = gameManager.BreakLine(colors, gameStat.speed);
+            gameStat = gameManager.BreakLine(colors, gameStat.speed); //destruction de la grille
             SetScore(gameStat.score);
             SetLevel(gameStat.level);
             piece = gameManager.generatePiece();
-            if (gameManager.isgameOver(piece,colors)){
+            if (gameManager.isgameOver(piece,colors)){ // si la partie est fini
                 TriggerGameOver();
             }
                     
             gameManager.SetPieceColors(piece, colors);
         }
 
-        // SetTickFunction définition
+        // génére une piece de depart
         piece = gameManager.generatePiece();
         gameManager.SetPieceColors(piece, colors);
 
+
+        //action a chaque tick
         SetTickFunction(() => {
-            if (actualTickUpdate >= gameStat.speed) {
+            if (actualTickUpdate >= gameStat.speed) { // dessand la piece si le temps est écoulé
                 if (gameManager.collider.isPosed(piece,colors)){
                     PiecePosed();
                 }
@@ -71,30 +77,35 @@ public class GridDisplay : MonoBehaviour
             else {
                 actualTickUpdate++;
             }
-            _grid.SetColors(colors);
+            _grid.SetColors(colors); // actualise la grille
             
         });
 
-        // TODO : Appelez SetMoveLeftFunction, SetMoveRightFunction, SetRotateFunction, SetRushFunction pour enregistrer
-        //        quelle fonction sera appelée lorsqu'on appuie sur les flèches directionnelles gauche, droite, la barre d'espace
-        //        et la flèche du bas du clavier.
+        // lien vert la fonction pour déplacer la piece a gauche
 
         SetMoveLeftFunction(()=>{
             gameManager.moveSystem.leftPiece(piece,colors);
-            gameManager.moveSystem.Preview(piece, colors);
+            //gameManager.moveSystem.Preview(piece, colors);
             });
+
+        // lien vert la fonction pour déplacer la piece a droite
         SetMoveRightFunction(()=>{
             gameManager.moveSystem.rightPiece(piece,colors);
-            gameManager.moveSystem.Preview(piece, colors);
+            //gameManager.moveSystem.Preview(piece, colors);
             });
+
+        // lien vert la fonction pour placer la piece en bas
         SetRushFunction(()=>gameManager.moveSystem.rushPiece(piece,colors,PiecePosed));
+
+        // lien vert la fonction pour faire tourner la piece
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
             piece.turn(colors,new List<int> {0,0});
             gameManager.SetPieceColors(piece, colors);
-            gameManager.moveSystem.Preview(piece, colors);
+            //gameManager.moveSystem.Preview(piece, colors);
         });
 
+        //placer le tick a 0.01s 
         SetTickTime(0.01f);
 
         // /!\ Ceci est la seule fonction du fichier que vous avez besoin de compléter, le reste se trouvant dans vos propres classes!  

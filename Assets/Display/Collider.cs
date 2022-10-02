@@ -6,6 +6,7 @@ class Collider{
 
     public Collider(){}
     
+    // test si la piece est posé
     public bool isPosed(Piece piece,List<List<SquareColor>> colors){
             if (piece.cord1[0]==21||piece.cord2[0]==21||piece.cord3[0]==21||piece.cord4[0]==21){
                 return true;
@@ -27,6 +28,7 @@ class Collider{
             return false;
         }
 
+        //test si la piece peut aller a gauche
         public bool isCollidingLeft(Piece piece, List<List<SquareColor>> colors){
             if (piece.cord1[1]==0||piece.cord2[1]==0||piece.cord3[1]==0||piece.cord4[1]==0){
                 return true;
@@ -47,7 +49,8 @@ class Collider{
             
             return false;
         }
-
+        
+        // test si la piece peut aller a droite
         public bool isCollidingRight(Piece piece, List<List<SquareColor>> colors){
             if (piece.cord1[1]==9||piece.cord2[1]==9||piece.cord3[1]==9||piece.cord4[1]==9){
                 return true;
@@ -68,6 +71,8 @@ class Collider{
             
             return false;
         }
+
+        // test si le carré peut faire le movement demander
 
         public bool isColliding(List<int> cord, Piece piece, string direction, List<List<SquareColor>> colors){
            int indexOfCord = 0;
