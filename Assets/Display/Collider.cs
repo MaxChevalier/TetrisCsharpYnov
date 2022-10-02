@@ -78,8 +78,7 @@ class Collider{
                 indexOfCord = 1;
                 numOfMoves = -1;
                 indexOfCordNoMove = 0;
-                if (colors[cord[0]][cord[1]-1] == SquareColor.TRANSPARENT)
-                {
+                if (colors[cord[0]][cord[1]-1] == SquareColor.TRANSPARENT || colors[cord[0]][cord[1]-1] == SquareColor.PREVIEW){
                     return false;
                 }
                 break;
@@ -87,7 +86,7 @@ class Collider{
                 indexOfCord = 1;
                 numOfMoves = 1;
                 indexOfCordNoMove = 0;
-                if (colors[cord[0]][cord[1]+1] == SquareColor.TRANSPARENT)
+                if (colors[cord[0]][cord[1]+1] == SquareColor.TRANSPARENT|| colors[cord[0]][cord[1]+1] == SquareColor.PREVIEW)
                 {
                     return false;
                 }
@@ -96,7 +95,7 @@ class Collider{
                 indexOfCord = 0;
                 numOfMoves = 1;
                 indexOfCordNoMove = 1;
-                if (colors[cord[0]+1][cord[1]] == SquareColor.TRANSPARENT)
+                if (colors[cord[0]+1][cord[1]] == SquareColor.TRANSPARENT||colors[cord[0]+1][cord[1]] == SquareColor.PREVIEW)
                 {
                     return false;
                 }
