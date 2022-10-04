@@ -10,6 +10,7 @@ class MoveSystem
     //recuperation des collision et du gameManager
     private Collider collider;
     private GameManager gameManager;
+    private GameStat gameStat;
 
     //constructeur pour generer une instance de collider
     public MoveSystem()
@@ -25,14 +26,15 @@ class MoveSystem
     }
 
     // fonction pour faire descendre la pièce en bas en un mouvement
-    public void RushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
+    public GameStat RushPiece(Piece piece, List<List<SquareColor>> colors, GameStat gameStat)
     {
         // tant que la pièce peut descendre on la fait descendre
         while (!collider.IsPosed(piece,colors))
         {
             DownPiece(piece,colors);
+            gameStat.score += gameStat.level;
         }
-        PiecePosed();
+        return gameStat;
     }
 
     // fonction pour faire bouger la pièce vers la gauche

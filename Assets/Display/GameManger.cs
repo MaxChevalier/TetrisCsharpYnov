@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public delegate void PiecePosed(); //delegate pour la pose de la pièce
+//public delegate void PiecePosed(GameStat _gameStat); //delegate pour la pose de la pièce
 
 //classe le management du jeu
 class GameManager
@@ -53,8 +53,11 @@ class GameManager
     }
 
     //fonction pour supprimer les ligne pleine et deplacer les ligne au dessus
-    public GameStat BreakLine(List<List<SquareColor>> colors, double speed)
+    public GameStat BreakLine(List<List<SquareColor>> colors, GameStat gameStat)
     {
+        lvl = gameStat.level;
+        score = gameStat.score;
+        double speed = gameStat.speed;
         int nbligne = 0;
         // la fonction supprime les lignes pleines et les lignes au dessus descendent
         for (int i = 0; i < 22; i++)

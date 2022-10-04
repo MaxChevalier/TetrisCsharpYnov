@@ -47,14 +47,13 @@ public class GridDisplay : MonoBehaviour
 
         void PiecePosed()
         {   
-            gameStat = gameManager.BreakLine(colors, gameStat.speed); //destruction de la grille
+            gameStat = gameManager.BreakLine(colors, gameStat); //destruction de la grille
             SetScore(gameStat.score);
             SetLevel(gameStat.level);
             piece = gameManager.GeneratePiece();
             if (gameManager.IsgameOver(piece,colors)){
                 TriggerGameOver();
-            }
-                    
+            }  
             gameManager.SetPieceColors(piece, colors);
         }
 
@@ -93,7 +92,10 @@ public class GridDisplay : MonoBehaviour
             gameManager.moveSystem.RightPiece(piece,colors);
             // gameManager.moveSystem.Preview(piece, colors);
             });
-        SetRushFunction(()=>gameManager.moveSystem.RushPiece(piece,colors,PiecePosed));
+        SetRushFunction(()=>{  
+            gameStat = gameManager.moveSystem.RushPiece(piece,colors,gameStat);
+            PiecePosed();
+        });
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
             piece.Turn(colors,new List<int> {0,0});
