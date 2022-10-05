@@ -13,9 +13,6 @@ class GameManager
 
     public MoveSystem moveSystem;
     public Collider collider;
-
-    private int score = 0;
-    private int lvl = 1;
     private int lines = 0;
     private List<int> paque = new List<int>(){};
 
@@ -74,8 +71,8 @@ class GameManager
             {
                 nbligne++;
                 lines += 1;
-                lvl = ((int)lines / 10) + 1;
-                speed = 100 - (Math.Pow(lvl, 1.2f) * 2.5f); // vitesse de la piece
+                gameStat.level = ((int)lines / 10) + 1;
+                gameStat.speed = 100 - (Math.Pow(gameStat.level, 1.2f) * 2.5f); // vitesse de la piece
                 for (int k = i; k > 0; k--)
                 {
                     for (int l = 0; l < 10; l++)
@@ -94,13 +91,13 @@ class GameManager
         {
             
             
-            score += (int)(((nbligne * 100) + ((Math.Pow(nbligne, 2) / 2) * 10)) * lvl); //le score est calculer en fonction du nombre de ligne supprimer et du niveau
+            gameStat.score += (int)(((nbligne * 100) + ((Math.Pow(nbligne, 2) / 2) * 10)) * gameStat.level); //le score est calculer en fonction du nombre de ligne supprimer et du niveau
         }
         else if (nbligne == 1)
         {
-            score += 100 * lvl;
+            gameStat.score += 100 * gameStat.level;
         }
-        return new GameStat(score, lvl, speed);
+        return gameStat;
     }
 
     //fonction pour remettre les couleur a transparent
