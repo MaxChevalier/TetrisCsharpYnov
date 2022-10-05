@@ -45,7 +45,7 @@ public class GridDisplay : MonoBehaviour
         // action si la piece est posé
 
         void PiecePosed()
-        {
+        {   
             gameStat = gameManager.BreakLine(colors, gameStat); //destruction de la grille
             SetScore(gameStat.score);
             SetLevel(gameStat.level);
@@ -102,15 +102,12 @@ public class GridDisplay : MonoBehaviour
         {
             gameManager.moveSystem.RightPiece(piece, colors);
             // gameManager.moveSystem.Preview(piece, colors);
-            SetColors(colors); // actualise la grille
+            });
+        SetRushFunction(()=>{  
+            gameStat = gameManager.moveSystem.RushPiece(piece,colors,gameStat);
+            PiecePosed();
         });
-        SetRushFunction(() =>
-        {
-            gameManager.moveSystem.RushPiece(piece, colors, PiecePosed);
-            SetColors(colors); // actualise la grille
-        });
-        SetRotateFunction(() =>
-        {
+        SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
             piece.Turn(colors, new List<int> { 0, 0 });
             gameManager.SetPieceColors(piece, colors);
