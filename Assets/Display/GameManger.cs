@@ -52,8 +52,6 @@ class GameManager
     //fonction pour supprimer les ligne pleine et deplacer les ligne au dessus
     public GameStat BreakLine(List<List<SquareColor>> colors, GameStat gameStat)
     {
-        lvl = gameStat.level;
-        score = gameStat.score;
         double speed = gameStat.speed;
         int nbligne = 0;
         // la fonction supprime les lignes pleines et les lignes au dessus descendent

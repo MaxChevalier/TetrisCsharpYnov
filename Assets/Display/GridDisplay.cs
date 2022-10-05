@@ -52,7 +52,6 @@ public class GridDisplay : MonoBehaviour
             if (gameStat.speed / 100 > 0.01)
             {
                 SetTickTime((float)gameStat.speed / 100);
-                UnityEngine.Debug.Log(gameStat.speed / 100);
             }
             else
             {
@@ -102,10 +101,12 @@ public class GridDisplay : MonoBehaviour
         {
             gameManager.moveSystem.RightPiece(piece, colors);
             // gameManager.moveSystem.Preview(piece, colors);
+            SetColors(colors); // actualise la grille
             });
         SetRushFunction(()=>{  
             gameStat = gameManager.moveSystem.RushPiece(piece,colors,gameStat);
             PiecePosed();
+            SetColors(colors); // actualise la grille
         });
         SetRotateFunction(() => {
             gameManager.RemovePieceColors(piece, colors);
