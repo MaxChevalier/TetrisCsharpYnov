@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 // classe pour le mouvement des pièces
 class MoveSystem
 {
-    //private Piece PreviewPiece = new Piece(new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},SquareColor.TRANSPARENT);
+    // private Piece PreviewPiece = new Piece(new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},new List<int>(){0,0},SquareColor.TRANSPARENT);
     
     //recuperation des collision et du gameManager
     private Collider collider;
@@ -28,7 +29,7 @@ class MoveSystem
     public void RushPiece(Piece piece, List<List<SquareColor>> colors, PiecePosed PiecePosed)
     {
         // tant que la pièce peut descendre on la fait descendre
-        while (!collider.IsColliding(piece,colors,new List<int>(){1,0}))
+        while (!collider.IsColliding(piece,colors,new List<int>(){1,0},piece))
         {
             DownPiece(piece,colors);
         }
@@ -40,7 +41,7 @@ class MoveSystem
     {
         // on verifie que la pièce peut bouger vers la gauche
 
-        if (!collider.IsColliding(piece,colors,new List<int>(){0,-1}))
+        if (!collider.IsColliding(piece,colors,new List<int>(){0,-1},piece))
         {
             // on enleve un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
@@ -56,7 +57,7 @@ class MoveSystem
     public void RightPiece(Piece piece, List<List<SquareColor>> colors)
     {
         // on verifie que la pièce peut bouger vers la droite
-        if (!collider.IsColliding(piece,colors,new List<int>(){0,1}))
+        if (!collider.IsColliding(piece,colors,new List<int>(){0,1},piece))
         {
             // on ajoute un pixel de coordonnée x a chaque pixel de la pièce
             gameManager.RemovePieceColors(piece,colors);
@@ -90,43 +91,21 @@ class MoveSystem
     //     List<List<int>> previewListeCord = new List<List<int>>(){PreviewPiece.cord1,PreviewPiece.cord2,PreviewPiece.cord3,PreviewPiece.cord4};
     //     List<List<int>> pieceListeCord = new List<List<int>>(){piece.cord1,piece.cord2,piece.cord3,piece.cord4};
 
-    //     bool isNextPrewiewPosed(){
-    //         foreach (List<int> cord in previewListeCord)
-    //         {
-    //             bool isOnPiece = false;
-    //             foreach (List<int> cord2 in pieceListeCord)
-    //             {
-    //                 if (cord[0]+1 == cord2[0] && cord[1] == cord2[1])
-    //                 {
-    //                     isOnPiece = true;
-    //                 }
-    //             }
-    //             if (!isOnPiece && colors[cord[0]+1][cord[1]] != SquareColor.TRANSPARENT)
-    //             {
-    //                 return true;
-    //             }
-    //         }
-    //         return false;
-            
-    //     }
-
-    //     while (!isNextPrewiewPosed())
+    //     while (!collider.IsColliding(PreviewPiece,colors,new List<int>(){1,0},piece))
     //     {
-    //         gameManager.RemovePieceColors(PreviewPiece,colors);
-    //         PreviewPiece.cord1[0] = PreviewPiece.cord1[0] + 1;
-    //         PreviewPiece.cord2[0] = PreviewPiece.cord2[0] + 1;
-    //         PreviewPiece.cord3[0] = PreviewPiece.cord3[0] + 1;
-    //         PreviewPiece.cord4[0] = PreviewPiece.cord4[0] + 1;
-            
+    //         UnityEngine.Debug.Log("preview");
     //         foreach (List<int> cord in previewListeCord)
     //         {
-    //             cord[0] = cord[0] + 1;
-    //             foreach (List<int> cord2 in pieceListeCord)
+    //             cord[0]++;
+    //         }
+    //     }
+    //     foreach (List<int> cord in previewListeCord)
+    //     {
+    //         foreach (List<int> cord2 in pieceListeCord)
+    //         {
+    //             if (cord[0] == cord2[0] && cord[1] == cord2[1])
     //             {
-    //                 if (cord[0] == cord2[0] && cord[1] == cord2[1])
-    //                 {
-    //                     colors[cord[0]][cord[1]] = SquareColor.PREVIEW;
-    //                 }
+    //                 colors[cord[0]][cord[1]] = SquareColor.PREVIEW;
     //             }
     //         }
     //     }
